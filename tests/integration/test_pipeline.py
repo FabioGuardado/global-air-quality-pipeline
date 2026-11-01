@@ -59,7 +59,7 @@ def test_cargar_procesado_restaura_tipos():
 def test_pipeline_sobre_dataset_sintetico(crudo_sintetico):
     r = ejecutar(crudo_sintetico)
     assert len(r.procesado) == 120
-    assert set(r.procesado["City"]) == {"lima", "sao paulo", "paris"}
+    assert set(r.procesado["City"]) == {"madrid", "mexico city", "paris"}
     assert r.procesado.isna().sum().sum() == 0
 
 

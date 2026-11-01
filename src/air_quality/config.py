@@ -23,6 +23,32 @@ TRIMESTRE = {12: "DEF", 1: "DEF", 2: "DEF", 3: "MAM", 4: "MAM", 5: "MAM",
 
 ORDEN_VIENTO = ["muy bajo", "bajo", "medio", "alto"]
 
+# Región y coordenadas (aprox. centro urbano) de cada ciudad normalizada.
+REGIONES = ["Norteamérica", "Latinoamérica", "Europa", "África y Medio Oriente", "Asia",
+            "Oceanía"]
+CIUDADES = {
+    "toronto":        ("Norteamérica", 43.65, -79.38),
+    "new york":       ("Norteamérica", 40.71, -74.01),
+    "los angeles":    ("Norteamérica", 34.05, -118.24),
+    "mexico city":    ("Latinoamérica", 19.43, -99.13),
+    "rio de janeiro": ("Latinoamérica", -22.91, -43.17),
+    "london":         ("Europa", 51.51, -0.13),
+    "paris":          ("Europa", 48.86, 2.35),
+    "berlin":         ("Europa", 52.52, 13.40),
+    "madrid":         ("Europa", 40.42, -3.70),
+    "moscow":         ("Europa", 55.76, 37.62),
+    "istanbul":       ("Europa", 41.01, 28.98),
+    "cairo":          ("África y Medio Oriente", 30.04, 31.24),
+    "johannesburg":   ("África y Medio Oriente", -26.20, 28.05),
+    "dubai":          ("África y Medio Oriente", 25.20, 55.27),
+    "mumbai":         ("Asia", 19.08, 72.88),
+    "bangkok":        ("Asia", 13.76, 100.50),
+    "beijing":        ("Asia", 39.90, 116.41),
+    "seoul":          ("Asia", 37.57, 126.98),
+    "tokyo":          ("Asia", 35.68, 139.69),
+    "sydney":         ("Oceanía", -33.87, 151.21),
+}
+
 DERIVADAS = ["ratio_pm", "n_excedencias_oms", "pm25_vs_ciudad", "pm25_movil_7d",
              "pm25_delta", "mes_sin", "mes_cos", "dia_sem_sin", "dia_sem_cos"]
 CONTINUAS = NUM + ["ratio_pm", "n_excedencias_oms", "pm25_vs_ciudad",
@@ -34,7 +60,7 @@ CODIFICADAS = ["viento_ord", "fin_semana_int", "mes_sin", "mes_cos",
 EXCLUIR_MODELO = ["pm25_vs_ciudad", "viento_ord"]
 
 # Columnas del CSV entregable (data/processed)
-ENTREGABLE = CLAVES + NUM + ["ratio_pm", "n_excedencias_oms", "pm25_vs_ciudad",
+ENTREGABLE = ["City", "Country", "region", "Date"] + NUM + ["ratio_pm", "n_excedencias_oms", "pm25_vs_ciudad",
                              "pm25_movil_7d", "pm25_delta", "mes", "dia_semana",
                              "fin_semana", "trimestre_met"]
 # Derivadas que se redondean a la precisión de las mediciones antes de exportar

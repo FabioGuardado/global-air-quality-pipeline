@@ -15,8 +15,8 @@ def crudo_sintetico():
     - Duplicados exactos y un duplicado de clave con menos columnas informadas.
     """
     rng = np.random.default_rng(0)
-    ciudades = {"Lima": "Peru", "São Paulo": "Brazil", "Paris": "France"}
-    variantes = {"Lima": [" lima", "LIMA", "Lima "], "São Paulo": ["sao paulo", "São  Paulo"],
+    ciudades = {"Madrid": "Spain", "México City": "Mexico", "Paris": "France"}
+    variantes = {"Madrid": [" madrid", "MADRID", "Madrid "], "México City": ["mexico city", "México  City"],
                  "Paris": ["Paris", "paris"]}
     fechas = pd.date_range("2023-01-01", periods=40, freq="D")
     filas = []
