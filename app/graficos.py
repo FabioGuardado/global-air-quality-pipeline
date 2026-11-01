@@ -143,19 +143,23 @@ def calendario(cal, contaminante, t: Tema, orden, seleccion=()):
         customdata=np.dstack([n.values.astype(object), nombres]),
         colorbar=dict(title=dict(text=f"Mediana semanal de {contaminante} (µg/m³)", side="top",
                                  font=dict(size=11, color=t.tenue)),
-                      orientation="h", x=1, xanchor="right", y=1.0, yanchor="bottom",
+                      orientation="h", x=1, xanchor="right", y=1.0, yanchor="top",
                       len=0.32, thickness=8, tickvals=[g, tope / 2, tope],
                       ticktext=[f"guía {g:g}", f"{tope / 2:g}", f"{tope:g}"]),
         hovertemplate=("<b>%{customdata[1]}</b><br>Semana del %{x|%d/%m/%Y}<br>"
                        f"Mediana {contaminante}: <b>%{{z:.1f}} µg/m³</b><br>"
                        "%{customdata[0]} días medidos<extra></extra>"),
     ))
+    # La barra de color va dentro del lienzo, en una franja reservada sobre el mapa: fuera de él,
+    # el auto-margen de Plotly dejaba ~30 px vacíos entre el subtítulo y la barra.
+    alto = 24 * len(orden) + 100
+    franja = 70 / alto
     fig.update_layout(
-        yaxis=dict(autorange="reversed", tickfont=dict(size=12, color=t.tinta_2)),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=12, color=t.tinta_2), domain=[0, 1 - franja]),
         xaxis=dict(showgrid=False, **_eje_meses(piv.columns)),
-        margin=dict(l=8, r=8, t=40, b=8),
+        margin=dict(l=8, r=8, t=0, b=8),
     )
-    return _base(fig, t, 24 * len(orden) + 84)
+    return _base(fig, t, alto)
 
 
 def tendencia(movil, banda, contaminante, t: Tema, seleccion=(), episodios=None, alto=380):
@@ -420,3 +424,86 @@ def grupos_horizontal(g, contaminante, t: Tema, mediana_global=None):
         margin=dict(l=8, r=8, t=30, b=8), showlegend=False,
     )
     return _base(fig, t, 24 * len(g) + 110)
+
+
+# ============================== Capítulo 04 ==============================
+
+def _etiqueta_meta(meta, valor):
+    return f"{'Guía OMS' if meta == 'guía' else meta} · {valor:g} µg/m³"
+
+
+def antes_despues(sim, contaminante, t: Tema, reduccion, alto=200):
+    """Dos barras al 100 % (hoy y escenario simulado) con los días en cada nivel OMS."""
+    filas = ["Hoy", f"Con −{reduccion:g} %"]
+    nv = {n.nombre: n for n in niveles(contaminante)}
+    fig = go.Figure()
+    for _, s in sim.iterrows():
+        valores = [s["pct_actual"], s["pct_simulado"]]
+        fig.add_bar(
+            y=filas, x=valores, orientation="h", name=s["nivel"],
+            marker=dict(color=t.severidad[s["indice"]], line=dict(color=t.superficie, width=1)),
+            text=[f"{v:.0f} %" if v >= 7 else "" for v in valores], textposition="inside",
+            insidetextanchor="middle", textfont=dict(color=t.texto_sobre[s["indice"]], size=12),
+            customdata=[nv[s["nivel"]].rango] * 2,
+            hovertemplate=(f"<b>%{{y}}</b><br>{s['nivel']} ({contaminante} %{{customdata}} µg/m³)<br>"
+                           "<b>%{x:.1f} %</b> de los días<extra></extra>"))
+    fig.update_layout(
+        barmode="stack", bargap=0.35, showlegend=False,
+        xaxis=dict(range=[0, 100], showgrid=True, tickvals=[0, 25, 50, 75, 100],
+                   ticktext=["0 %", "25 %", "50 %", "75 %", "100 %"]),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=13, color=t.tinta)),
+        margin=dict(l=8, r=8, t=8, b=8))
+    return _base(fig, t, alto)
+
+
+def hoja_ruta(req, contaminante, t: Tema, reduccion, alto=None):
+    """Recorte necesario para alcanzar cada meta OMS. Las metas que el escenario alcanza se resaltan."""
+    etiquetas = [_etiqueta_meta(m, v) for m, v in zip(req["meta"], req["valor"])]
+    alcanzada = req["reduccion"] <= reduccion + 1e-9
+    fig = go.Figure(go.Bar(
+        y=etiquetas, x=req["reduccion"], orientation="h",
+        marker=dict(color=[t.acento if a else t.contexto for a in alcanzada]),
+        customdata=np.stack([req["valor"], ["alcanzada" if a else "fuera de alcance" for a in alcanzada]],
+                            axis=-1),
+        hovertemplate=("<b>%{y}</b><br>Recorte necesario: <b>%{x:.0f} %</b><br>"
+                       "Con el escenario elegido: %{customdata[1]}<extra></extra>")))
+    for e, r, a in zip(etiquetas, req["reduccion"], alcanzada):
+        fig.add_annotation(x=r, y=e, xanchor="left", xshift=6, showarrow=False,
+                           text=f"<b>−{r:.0f} %</b>" if a else f"−{r:.0f} %",
+                           font=dict(size=12.5, color=t.tinta if a else t.tinta_2))
+    fig.add_vline(x=reduccion, line=dict(color=t.tinta, width=1.5, dash="dot"),
+                  annotation=dict(text=f"Escenario −{reduccion:g} %", font=dict(size=11, color=t.tinta)),
+                  annotation_position="top")
+    fig.update_layout(
+        showlegend=False, bargap=0.38,
+        xaxis=dict(range=[0, 105], showgrid=True, tickvals=[0, 25, 50, 75, 100],
+                   ticktext=["0 %", "25 %", "50 %", "75 %", "100 %"],
+                   title=dict(text="Recorte de las concentraciones de fondo")),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=12.5, color=t.tinta_2)),
+        margin=dict(l=8, r=8, t=30, b=8))
+    return _base(fig, t, alto or 52 * len(req) + 100)
+
+
+def ranking_ciudades(pri, t: Tema, seleccion=(), alto=None):
+    """% de días críticos por ciudad (las tres guías superadas a la vez), de mayor a menor."""
+    sel = set(seleccion)
+    pri = pri.iloc[::-1]                         # la más crítica arriba
+    nombres = [nombre_ciudad(c) for c in pri["City"]]
+    opacidad = [1 if not sel or c in sel else 0.28 for c in pri["City"]]
+    fig = go.Figure(go.Bar(
+        y=nombres, x=pri["pct_criticos"], orientation="h",
+        marker=dict(color=t.severidad[4], opacity=opacidad),
+        customdata=np.stack([pri["dias_criticos"], pri["n"], pri["pct_sobre_it1"], pri["City"]], axis=-1),
+        hovertemplate=("<b>%{y}</b><br>Días críticos: <b>%{x:.1f} %</b> "
+                       "(%{customdata[0]} de %{customdata[1]})<br>"
+                       "Sobre IT-1: %{customdata[2]:.1f} %<extra></extra>")))
+    for n, v in zip(nombres, pri["pct_criticos"]):
+        fig.add_annotation(x=v, y=n, xanchor="left", xshift=6, showarrow=False, text=f"{v:.0f} %",
+                           font=dict(size=12, color=t.tinta_2))
+    tope = max(float(pri["pct_criticos"].max()) * 1.15, 10) if not pri.empty else 100
+    fig.update_layout(
+        showlegend=False, bargap=0.3, clickmode="event+select",
+        xaxis=dict(range=[0, tope], showgrid=True, ticksuffix=" %", side="top"),
+        yaxis=dict(tickfont=dict(size=12.5, color=t.tinta_2)),
+        margin=dict(l=8, r=8, t=24, b=4))
+    return _base(fig, t, alto or max(220, 24 * len(pri) + 50))

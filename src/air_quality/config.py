@@ -8,6 +8,10 @@ PROCESSED_PATH = ROOT / "data" / "processed" / "air_quality_procesado.csv"
 
 RANDOM_STATE = 42
 
+# Fuente del dataset crudo (se muestra en el dashboard). Pendiente: URL de Kaggle.
+FUENTE_NOMBRE = "dataset global de calidad del aire (Kaggle)"
+FUENTE_URL = ""
+
 POLL = ["PM2.5", "PM10", "NO2", "SO2", "CO", "O3"]   # contaminantes
 METEO = ["Temperature", "Humidity", "Wind Speed"]    # meteorología
 NUM = POLL + METEO

@@ -133,3 +133,17 @@ def test_detalles_de_causa(datos, t):
     assert len(graficos.dumbbell_finde(hp.finde_por_ciudad(datos, "PM2.5"), "PM2.5", t).data) == 2
     g = graficos.grupos_horizontal(hp.grupos(datos, "PM2.5", "Ciudad"), "PM2.5", t, 78)
     assert len(g.data[0].y) == 20
+
+
+@pytest.mark.parametrize("con_texto", [True, False])
+def test_logo_usa_los_colores_del_tema(t, con_texto):
+    svg = tema.logo_svg(t, con_texto)
+    assert svg.startswith("<svg ") and t.severidad[5] in svg and t.tinta in svg
+    assert ("Calidad del aire" in svg) == con_texto
+
+
+def test_css_no_oculta_el_boton_para_expandir_la_barra(t):
+    css = tema.css(t)
+    # el botón para expandir la barra lateral vive dentro de stToolbar: no se puede ocultar entero
+    assert '[data-testid="stToolbar"] { display: none; }' not in css
+    assert "stMainMenu" in css

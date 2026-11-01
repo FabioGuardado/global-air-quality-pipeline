@@ -5,6 +5,8 @@ from html import escape
 import numpy as np
 import streamlit as st
 
+from air_quality.config import FUENTE_NOMBRE, FUENTE_URL
+
 CAPITULOS = [
     ("01", "diagnostico", "Diagnóstico"),
     ("02", "patrones", "Patrones y anomalías"),
@@ -41,11 +43,20 @@ def delta_pp(actual, global_, invertido=False):
     return f"{flecha} {abs(d):.1f} pp vs. total"
 
 
+def marca():
+    html('<div class="marca"><span class="punto"></span>Calidad del aire global · 2023</div>')
+
+
+def fuente():
+    if FUENTE_URL:
+        return (f'<a href="{FUENTE_URL}" target="_blank" rel="noopener">{FUENTE_NOMBRE} ↗</a>')
+    return FUENTE_NOMBRE
+
+
 def encabezado(n_filas, n_ciudades, desde, hasta):
     html(f"""
 <header class="cab">
   <div>
-    <div class="marca"><span class="punto"></span>Calidad del aire global · 2023</div>
     <h1>El aire que respiran 20 ciudades no da tregua</h1>
     <p class="tesis">Un recorrido en cuatro pasos por {n_filas:,} mediciones diarias: cuánto se
     incumplen las guías de la OMS, dónde y cuándo aparecen los episodios, qué explica (y qué no) la
@@ -54,19 +65,59 @@ def encabezado(n_filas, n_ciudades, desde, hasta):
   <div class="meta">
     <b>{n_ciudades}</b> ciudades · <b>6</b> regiones<br>
     <b>{fecha(desde)}</b> — <b>{fecha(hasta)}</b><br>
-    Fuente: dataset global de calidad del aire,<br>procesado en la Fase I del proyecto
+    Fuente: {fuente()},<br>procesado en la Fase I del proyecto
   </div>
 </header>""")
 
 
-def navegacion(disponibles=("01",)):
-    items = []
-    for num, ancla, nombre in CAPITULOS:
-        if num in disponibles:
-            items.append(f'<a href="#{ancla}" target="_self"><span class="num">{num}</span>{nombre}</a>')
-        else:
-            items.append(f'<span class="pendiente"><span class="num">{num}</span>{nombre}</span>')
-    html(f'<nav class="nav-cap">{"".join(items)}</nav>')
+def navegacion(paginas, actual):
+    """Menú de capítulos (siempre visible, aunque la barra lateral esté contraída)."""
+    with st.container(horizontal=True, key="nav-cap", gap="small"):
+        for num, _, nombre in CAPITULOS:
+            estado = "activo" if num == actual else "item"
+            with st.container(key=f"nav-{estado}-{num}", width="content"):
+                st.page_link(paginas[num], label=f"{num}  {nombre}")
+
+
+def siguiente(paginas, actual):
+    """Enlace al capítulo siguiente para conservar el hilo del relato (en el 04, vuelve al inicio)."""
+    nums = [c[0] for c in CAPITULOS]
+    i = nums.index(actual)
+    if i + 1 < len(nums):
+        num, _, nombre = CAPITULOS[i + 1]
+        etiqueta, icono = f"Siguiente: {num} {nombre}", ":material/arrow_forward:"
+    else:
+        num, _, nombre = CAPITULOS[0]
+        etiqueta, icono = f"Volver al inicio: {num} {nombre}", ":material/replay:"
+    with st.container(key="siguiente", horizontal=True, horizontal_alignment="right"):
+        st.page_link(paginas[num], label=etiqueta, icon=icono, icon_position="right")
+
+
+def traducir_widgets():
+    """Traduce el "Select all" que Streamlit escribe en inglés dentro del menú del multiselect.
+
+    El texto está fijo en el frontend de Streamlit (sin parámetro para cambiarlo); se reemplaza
+    solo ese texto exacto, nunca las opciones reales.
+    """
+    st.html(r"""<script>
+(() => {
+  if (window.__aireTraduccion) return;
+  window.__aireTraduccion = true;
+  const traducir = (nodo) => {
+    nodo.querySelectorAll?.('[role="option"]').forEach((op) => {
+      const w = document.createTreeWalker(op, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = w.nextNode())) {
+        const v = n.nodeValue.trim();
+        if (v === "Select all") n.nodeValue = "Seleccionar todas";
+        else if (/^Select \d+ matches$/.test(v)) n.nodeValue = v.replace(/^Select (\d+) matches$/, "Seleccionar las $1 coincidencias");
+      }
+    });
+  };
+  new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach((n) => n.nodeType === 1 && traducir(n))))
+    .observe(document.body, { childList: true, subtree: true });
+})();
+</script>""", unsafe_allow_javascript=True)
 
 
 def capitulo(num, ancla, kicker, titulo, bajada=""):
@@ -77,6 +128,7 @@ def capitulo(num, ancla, kicker, titulo, bajada=""):
     <div class="kicker">{escape(kicker)}</div>
     <h2>{titulo}</h2>
     {f'<p class="bajada">{bajada}</p>' if bajada else ''}
+    {st.session_state.get("_activos", "")}
   </div>
 </section>""")
 
@@ -152,9 +204,23 @@ def tabla_episodios(ep, contaminante, colores, nombre_nivel, n=8):
 <tbody>{''.join(filas)}</tbody></table>""")
 
 
+def _cabecera(columna):
+    """Encabezado con la unidad entre paréntesis fuera de las mayúsculas (µg/m³ no debe volverse MG/M³)."""
+    texto = escape(str(columna))
+    if texto.endswith(")") and " (" in texto:
+        nombre, unidad = texto.rsplit(" (", 1)
+        return f'{nombre} <span class="unidad">({unidad}</span>'
+    return texto
+
+
+def sin_corte(texto):
+    """Evita que el navegador parta '−50 %' o 'IT-1' entre dos líneas."""
+    return f'<span class="nw">{texto}</span>'
+
+
 def tabla_simple(df, alto_max=360):
     """Tabla HTML con scroll (st.dataframe no respeta el CSS del modo oscuro)."""
-    cab = "".join(f'<th class="{"num" if df[c].dtype.kind in "if" else ""}">{escape(str(c))}</th>'
+    cab = "".join(f'<th class="{"num" if df[c].dtype.kind in "if" else ""}">{_cabecera(c)}</th>'
                   for c in df.columns)
     filas = "".join(
         "<tr>" + "".join(f'<td class="{"num" if df[c].dtype.kind in "if" else ""}">{escape(str(v))}</td>'
@@ -167,6 +233,18 @@ def tabla_simple(df, alto_max=360):
 def tarjeta_texto(rotulo, titulo, cuerpo, pie=""):
     html(f"""<div class="tarjeta-texto"><div class="rotulo">{rotulo}</div><h4>{titulo}</h4>
 <div class="cuerpo">{cuerpo}</div>{f'<div class="pie">{pie}</div>' if pie else ''}</div>""")
+
+
+def acciones(items):
+    """Tarjetas de recomendación: dict(num, titulo, cuerpo, evidencia, cap)."""
+    bloques = "".join(f"""
+<article class="accion">
+  <div class="num">{a['num']}</div>
+  <h4>{a['titulo']}</h4>
+  <p>{a['cuerpo']}</p>
+  <div class="evidencia"><span>Evidencia · cap. {a['cap']}</span>{a['evidencia']}</div>
+</article>""" for a in items)
+    html(f'<div class="acciones">{bloques}</div>')
 
 
 def nombre_ciudad(c):
