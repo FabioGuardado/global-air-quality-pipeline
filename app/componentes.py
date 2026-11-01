@@ -13,6 +13,7 @@ CAPITULOS = [
     ("03", "causa", "Causa raíz"),
     ("04", "recomendacion", "Recomendación"),
 ]
+ANEXO = ("A", "auditoria", "Auditoría del dato")
 
 
 def html(contenido: str):
@@ -71,26 +72,49 @@ def encabezado(n_filas, n_ciudades, desde, hasta):
 
 
 def navegacion(paginas, actual):
-    """Menú de capítulos (siempre visible, aunque la barra lateral esté contraída)."""
+    """Menú de capítulos (siempre visible, aunque la barra lateral esté contraída).
+
+    El anexo de auditoría va aparte, a la derecha: no forma parte del relato 01 → 04.
+    """
     with st.container(horizontal=True, key="nav-cap", gap="small"):
         for num, _, nombre in CAPITULOS:
             estado = "activo" if num == actual else "item"
             with st.container(key=f"nav-{estado}-{num}", width="content"):
                 st.page_link(paginas[num], label=f"{num}  {nombre}")
+        num, _, nombre = ANEXO
+        estado = "activo" if num == actual else "item"
+        with st.container(key=f"nav-anexo-{estado}", width="content"):
+            st.page_link(paginas[num], label=nombre, icon=":material/fact_check:")
 
 
 def siguiente(paginas, actual):
-    """Enlace al capítulo siguiente para conservar el hilo del relato (en el 04, vuelve al inicio)."""
-    nums = [c[0] for c in CAPITULOS]
-    i = nums.index(actual)
-    if i + 1 < len(nums):
-        num, _, nombre = CAPITULOS[i + 1]
-        etiqueta, icono = f"Siguiente: {num} {nombre}", ":material/arrow_forward:"
-    else:
-        num, _, nombre = CAPITULOS[0]
+    """Enlace al paso siguiente del relato: 01 → 02 → 03 → 04 → anexo → 01."""
+    orden = [c[0] for c in CAPITULOS] + [ANEXO[0]]
+    i = orden.index(actual)
+    num = orden[(i + 1) % len(orden)]
+    nombre = {c[0]: c[2] for c in CAPITULOS + [ANEXO]}[num]
+    if num == ANEXO[0]:
+        etiqueta, icono = f"Ver de dónde salen los datos: {nombre}", ":material/fact_check:"
+    elif num == orden[0]:
         etiqueta, icono = f"Volver al inicio: {num} {nombre}", ":material/replay:"
+    else:
+        etiqueta, icono = f"Siguiente: {num} {nombre}", ":material/arrow_forward:"
     with st.container(key="siguiente", horizontal=True, horizontal_alignment="right"):
         st.page_link(paginas[num], label=etiqueta, icon=icono, icon_position="right")
+
+
+def verificaciones(v):
+    """Lista de controles de calidad: ✓ aprobado / ⚠ falla (siempre con ícono y texto, no solo color)."""
+    filas = []
+    for _, c in v.iterrows():
+        ok = bool(c["aprobado"])
+        enlace = f' <span class="ver-cap">· ver capítulo {c["capitulo"]}</span>' if c.get("capitulo") else ""
+        icono, clase, estado = ("✓", "ok", "Aprobado") if ok else ("⚠", "falla", "Falla")
+        filas.append(f"""<li class="{clase}">
+  <span class="icono">{icono}</span>
+  <div><b>{escape(c['control'])}</b><span class="estado">{estado}</span>
+  <p>{escape(c['detalle'])}{enlace}</p></div></li>""")
+    html(f'<ul class="verificaciones">{"".join(filas)}</ul>')
 
 
 def traducir_widgets():
@@ -120,7 +144,7 @@ def traducir_widgets():
 </script>""", unsafe_allow_javascript=True)
 
 
-def capitulo(num, ancla, kicker, titulo, bajada=""):
+def capitulo(num, ancla, kicker, titulo, bajada="", activos=True):
     html(f"""
 <section class="capitulo" id="{ancla}">
   <div class="num">{num}</div>
@@ -128,7 +152,7 @@ def capitulo(num, ancla, kicker, titulo, bajada=""):
     <div class="kicker">{escape(kicker)}</div>
     <h2>{titulo}</h2>
     {f'<p class="bajada">{bajada}</p>' if bajada else ''}
-    {st.session_state.get("_activos", "")}
+    {st.session_state.get("_activos", "") if activos else ""}
   </div>
 </section>""")
 
@@ -150,7 +174,7 @@ def hero(cifra, unidad, texto, rotulo, progreso, delta="", escala=("0 %", "100 %
 </div>""")
 
 
-def kpis(tarjetas):
+def kpis(tarjetas, columnas=2):
     """tarjetas: lista de dict(rotulo, valor, unidad, nota, delta, color)."""
     bloques = []
     for k in tarjetas:
@@ -163,7 +187,8 @@ def kpis(tarjetas):
   <div class="nota">{k.get('nota', '')}</div>
   <div class="delta">{k.get('delta', '')}</div>
 </div>""")
-    html(f'<div class="kpis">{"".join(bloques)}</div>')
+    estilo = f' style="grid-template-columns:repeat({columnas},minmax(0,1fr))"' if columnas != 2 else ""
+    html(f'<div class="kpis"{estilo}>{"".join(bloques)}</div>')
 
 
 def titulo_grafico(titulo, sub=""):

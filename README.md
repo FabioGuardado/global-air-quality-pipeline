@@ -19,7 +19,7 @@ variables meteorológicas en 20 ciudades).
 │   └── processed/           # salida del pipeline, la que consume el dashboard
 ├── notebooks/
 │   └── eda_pipeline.ipynb   # narrativa de las Fases 0-V, importa src/air_quality
-├── src/air_quality/         # pipeline, escala OMS, métricas, patrones, hipótesis y escenarios (paquete)
+├── src/air_quality/         # pipeline, escala OMS, métricas, patrones, hipótesis, escenarios y auditoría
 ├── app/                     # dashboard de Streamlit (Fase II)
 │   ├── streamlit_app.py     # punto de entrada
 │   ├── tema.py              # paletas validadas, plantilla Plotly y CSS (claro/oscuro)

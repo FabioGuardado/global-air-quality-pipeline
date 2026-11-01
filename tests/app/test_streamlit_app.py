@@ -163,3 +163,28 @@ def test_tabla_de_detalle_y_descarga(app, datos):
     n = int((datos["City"] == "tokyo").sum())
     assert f"<b>{n:,}</b> mediciones" in texto
     assert "Seleccionada: <b>Tokyo</b>" in texto
+
+
+def test_pagina_de_auditoria(app):
+    _ir(app, "auditoria")
+    assert not app.exception
+    texto = _texto(app)
+    assert "Auditoría del dato" in texto
+    assert "4 de 5 controles aprobados" in texto
+    assert "Coherencia física de los sensores" in texto
+    assert len(app.get("plotly_chart")) == 2
+    assert '<div class="activos">' not in texto   # los filtros no aplican al anexo
+
+
+def test_bitacora_filtrable_por_fase(app):
+    _ir(app, "auditoria")
+    app.segmented_control(key="aud_fase").set_value("Duplicados").run()
+    assert not app.exception
+    texto = _texto(app)
+    assert "Eliminar 13897 filas" in texto
+    assert "Normalizar texto" not in texto
+
+
+def test_el_04_lleva_al_anexo(app):
+    _ir(app, "recomendacion")
+    assert "Ver de dónde salen los datos" in str([e.proto for e in app.get("page_link")])

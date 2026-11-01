@@ -78,7 +78,7 @@ def ciudad_de_seleccion(estado, indice_custom):
     return None
 
 
-def barra(df):
+def barra(df, pagina_auditoria=None):
     """Dibuja los filtros en la barra lateral y devuelve los `Filtros` activos."""
     minimo, maximo = df["Date"].min().date(), df["Date"].max().date()
     with st.sidebar:
@@ -98,6 +98,8 @@ def barra(df):
                   icon=":material/filter_alt_off:", key="btn_limpiar")
         st.html(f'<div class="lateral-pie">{len(df):,} mediciones · {df["City"].nunique()} ciudades<br>'
                 f'Fuente: {ui.fuente()}</div>')
+        if pagina_auditoria is not None:
+            st.page_link(pagina_auditoria, label="Cómo se limpiaron los datos", icon=":material/fact_check:")
 
     fechas = st.session_state["f_fechas"]
     desde = pd.Timestamp(fechas[0]) if len(fechas) > 0 else None

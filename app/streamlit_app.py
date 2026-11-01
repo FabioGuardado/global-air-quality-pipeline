@@ -39,7 +39,7 @@ def _alternar_tema():
 
 paginas = {num: st.Page(f"paginas/{ancla}.py", title=f"{num} {nombre} · Calidad del aire global",
                         url_path=ancla, default=num == "01")
-           for num, ancla, nombre in ui.CAPITULOS}
+           for num, ancla, nombre in ui.CAPITULOS + [ui.ANEXO]}
 pagina = st.navigation(list(paginas.values()), position="hidden")
 actual = next(num for num, p in paginas.items() if p.title == pagina.title)
 
@@ -53,7 +53,7 @@ ui.html(f"<style>{tema.css(t)}</style>")
 st.logo(tema.logo_svg(t), icon_image=tema.logo_svg(t, con_texto=False), size="large")
 ui.traducir_widgets()
 
-f = filtros.barra(df_total)
+f = filtros.barra(df_total, paginas[ui.ANEXO[0]])
 df = filtrar(df_total, f)
 # Contexto: mismos filtros salvo la ciudad. Las vistas comparativas muestran todas las ciudades y
 # resaltan la seleccionada (foco + contexto) en lugar de quedarse con una sola barra.

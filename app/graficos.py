@@ -507,3 +507,66 @@ def ranking_ciudades(pri, t: Tema, seleccion=(), alto=None):
         yaxis=dict(tickfont=dict(size=12.5, color=t.tinta_2)),
         margin=dict(l=8, r=8, t=24, b=4))
     return _base(fig, t, alto or max(220, 24 * len(pri) + 50))
+
+
+# ============================== Auditoría del dato ==============================
+
+def embudo(emb, t: Tema, alto=None):
+    """Filas que quedan en cada etapa de la limpieza; la última (el procesado) en el acento."""
+    emb = emb.reset_index(drop=True)
+    total = float(emb["filas"].iloc[0])
+    ultima = len(emb) - 1
+    colores = [t.acento if i == ultima else t.contexto for i in range(len(emb))]
+    fig = go.Figure(go.Bar(
+        y=emb["etapa"], x=emb["filas"], orientation="h", marker=dict(color=colores),
+        customdata=(emb["filas"] / total * 100), hovertemplate=(
+            "<b>%{y}</b><br>%{x:,} filas (%{customdata:.1f} % del crudo)<extra></extra>")))
+    for i, f in emb.iterrows():
+        quitadas = "" if i == 0 else f"  −{int(emb['filas'].iloc[i - 1] - f['filas']):,}"
+        fig.add_annotation(x=f["filas"], y=f["etapa"], xanchor="left", xshift=6, showarrow=False,
+                           text=f"<b>{int(f['filas']):,}</b><span style='color:{t.tenue}'>{quitadas}</span>",
+                           font=dict(size=12.5, color=t.tinta if i == ultima else t.tinta_2))
+    fig.update_layout(
+        showlegend=False, bargap=0.35,
+        xaxis=dict(range=[0, total * 1.25], showgrid=True, tickformat=",d"),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=12.5, color=t.tinta_2)),
+        margin=dict(l=8, r=8, t=8, b=8))
+    return _base(fig, t, alto or 60 * len(emb) + 60)
+
+
+NOMBRES_VARIABLE = {"Temperature": "Temperatura", "Humidity": "Humedad", "Wind Speed": "Viento"}
+
+
+def deltas_distribucion(dist, t: Tema, banda=1.0, alto=None):
+    """Cambio % de la media (●) y de la desviación (◆) de cada variable tras el pipeline.
+
+    Eje simétrico centrado en 0 (un cambio puede ser negativo); la franja gris marca ±`banda` %.
+    """
+    d = dist.iloc[::-1].reset_index(drop=True)
+    nombres = [NOMBRES_VARIABLE.get(v, v) for v in d["variable"]]
+    tope = max(3.0, float(np.ceil(d[["delta_media_pct", "delta_std_pct"]].abs().to_numpy().max() * 1.3)))
+    fig = go.Figure()
+    fig.add_vrect(x0=-banda, x1=banda, fillcolor=t.grilla, opacity=1, line_width=0, layer="below")
+    fig.add_vline(x=0, line=dict(color=t.eje, width=1))
+    for col, nombre, simbolo, color in [("delta_media_pct", "Media", "circle", t.acento),
+                                        ("delta_std_pct", "Desviación", "diamond", t.tinta_2)]:
+        fig.add_scatter(
+            x=d[col], y=nombres, mode="markers", name=nombre,
+            marker=dict(symbol=simbolo, size=11, color=color, line=dict(color=t.superficie, width=1.5)),
+            customdata=np.stack([d["ks_p"]], axis=-1),
+            hovertemplate=(f"<b>%{{y}}</b><br>{nombre}: <b>%{{x:+.2f}} %</b><br>"
+                           "KS p = %{customdata[0]:.2f}<extra></extra>"))
+    for n, (_, f) in zip(nombres, d.iterrows()):
+        marca = "✓" if f["intacta"] else "✕"
+        fig.add_annotation(x=1, xref="paper", xanchor="left", xshift=14, y=n, showarrow=False,
+                           text=f"{marca} KS p = {f['ks_p']:.2f}",
+                           font=dict(size=12, color=t.tinta_2 if f["intacta"] else t.critico))
+    fig.add_annotation(x=0, y=1, yref="paper", yanchor="bottom", showarrow=False,
+                       text=f"cambio despreciable (±{banda:g} %)", font=dict(size=11, color=t.tenue))
+    fig.update_layout(
+        legend=dict(orientation="h", y=-0.12, yanchor="top", x=0, bgcolor="rgba(0,0,0,0)"),
+        xaxis=dict(range=[-tope, tope], showgrid=True, ticksuffix=" %", zeroline=False,
+                   title=dict(text="Cambio respecto del CSV crudo")),
+        yaxis=dict(tickfont=dict(size=12.5, color=t.tinta)),
+        margin=dict(l=8, r=130, t=28, b=8))
+    return _base(fig, t, alto or 36 * len(d) + 150)

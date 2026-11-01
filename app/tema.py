@@ -109,9 +109,10 @@ def logo_svg(t: Tema, con_texto=True) -> str:
               '<path d="M14 20.5h12a3.5 3.5 0 1 1-3.5 3.5"/></g>')
     if not con_texto:
         return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">{trazos}</svg>'
-    texto = (f'<text x="38" y="21.5" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" '
-             f'font-size="15" font-weight="700" letter-spacing="-0.2" fill="{t.tinta}">Calidad del aire</text>')
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 32">{trazos}{texto}</svg>'
+    # en mayúsculas con tracking amplio, como la marca de la cabecera
+    texto = (f'<text x="38" y="21" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" '
+             f'font-size="13" font-weight="700" letter-spacing="1.3" fill="{t.tinta}">CALIDAD DEL AIRE</text>')
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 214 32">{trazos}{texto}</svg>'
 
 
 def registrar_plantillas():
@@ -182,6 +183,26 @@ h1, h2, h3, h4, p, span, label, li {{ font-family: var(--fuente); }}
 [class*="st-key-nav-activo"] [data-testid="stPageLink"] a {{ background: var(--tinta); border-color: var(--tinta); }}
 [class*="st-key-nav-activo"] [data-testid="stPageLink"] a span,
 [class*="st-key-nav-activo"] [data-testid="stPageLink"] a p {{ color: var(--superficie); font-weight:600; }}
+
+/* El anexo va aparte, a la derecha del menú, con menos peso visual */
+/* Streamlit envuelve cada contenedor en un div: el elemento flex es ese envoltorio */
+.st-key-nav-cap > div:has(> [class*="st-key-nav-anexo"]) {{ margin-left: auto; }}
+[class*="st-key-nav-anexo-item"] [data-testid="stPageLink"] a {{ border-style: dashed; background: transparent; }}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a span, [data-testid="stSidebar"] [data-testid="stPageLink"] a p {{
+  font-size:.8rem; color: var(--acento); }}
+
+/* Controles de calidad (auditoría) */
+.verificaciones {{ list-style:none; margin:.3rem 0 0; padding:0; display:grid; gap:.15rem; }}
+.verificaciones li {{ display:grid; grid-template-columns: 1.8rem 1fr; gap:.4rem; padding:.6rem 0;
+  border-bottom:1px solid var(--grilla); }}
+.verificaciones li:last-child {{ border-bottom:none; }}
+.verificaciones .icono {{ font-size:1rem; font-weight:700; color:var(--tinta-2); line-height:1.4; }}
+.verificaciones b {{ color:var(--tinta); font-weight:600; font-size:.92rem; }}
+.verificaciones .estado {{ margin-left:.5rem; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--tenue); font-weight:700; }}
+.verificaciones p {{ margin:.15rem 0 0; color:var(--tinta-2); font-size:.85rem; line-height:1.45; }}
+.verificaciones li.falla .icono, .verificaciones li.falla .estado {{ color:{t.critico}; }}
+.verificaciones .ver-cap {{ color: var(--tenue); font-size:.78rem; }}
 
 /* Enlace al capítulo siguiente */
 .st-key-siguiente {{ margin-top: 2.6rem; padding-top: 1.2rem; border-top: 1px solid var(--grilla); }}

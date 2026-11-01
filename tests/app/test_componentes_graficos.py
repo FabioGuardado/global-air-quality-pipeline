@@ -139,7 +139,7 @@ def test_detalles_de_causa(datos, t):
 def test_logo_usa_los_colores_del_tema(t, con_texto):
     svg = tema.logo_svg(t, con_texto)
     assert svg.startswith("<svg ") and t.severidad[5] in svg and t.tinta in svg
-    assert ("Calidad del aire" in svg) == con_texto
+    assert ("CALIDAD DEL AIRE" in svg) == con_texto
 
 
 def test_css_no_oculta_el_boton_para_expandir_la_barra(t):
