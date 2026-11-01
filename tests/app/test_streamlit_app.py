@@ -20,8 +20,11 @@ def _texto(at):
 
 def test_carga_sin_errores(app):
     assert not app.exception
-    assert len(app.get("plotly_chart")) == 2
-    assert "9 de cada 10 días" in _texto(app)
+    assert len(app.get("plotly_chart")) == 8
+    texto = _texto(app)
+    assert "9 de cada 10 días" in texto
+    assert "No hay temporada limpia" in texto
+    assert "Ni el viento, el calor ni el fin de semana" in texto
 
 
 def test_region_restringe_las_ciudades(app):
@@ -67,7 +70,7 @@ def test_filtros_sin_resultados_muestran_estado_vacio(app, datos):
     app.date_input(key="f_fechas").set_value((dia, dia))
     app.run()
     assert not app.exception
-    assert "Sin datos para esta combinación" in _texto(app)
+    assert _texto(app).count("Sin datos para esta combinación") == 3     # los tres capítulos
     assert len(app.get("plotly_chart")) == 0
 
 
@@ -81,3 +84,16 @@ def test_modo_oscuro(app):
     app.toggle(key="oscuro").set_value(True).run()
     assert not app.exception
     assert "#0d0d0d" in _texto(app)        # el CSS oscuro está inyectado
+
+
+@pytest.mark.parametrize("detalle", ["Estación", "Fin de semana", "Ciudad"])
+def test_detalle_de_causa(app, detalle):
+    app.segmented_control(key="det_causa").set_value(detalle).run()
+    assert not app.exception
+
+
+def test_una_ciudad_deja_ciudad_como_no_aplica(app):
+    app.multiselect(key="f_ciudades").set_value(["tokyo"]).run()
+    app.segmented_control(key="det_causa").set_value("Ciudad").run()
+    assert not app.exception
+    assert "Con una sola ciudad seleccionada" in _texto(app)

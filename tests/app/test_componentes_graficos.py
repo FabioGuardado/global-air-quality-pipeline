@@ -77,3 +77,59 @@ def test_css_expone_tokens_de_cada_tema(t):
     css = tema.css(t)
     assert t.superficie in css and t.severidad[5] in css
     assert ("stBaseButton" in css) == (t is tema.OSCURO)   # overrides solo en oscuro
+
+
+# ---------------- Capítulos 02 y 03 ----------------
+from air_quality import hipotesis as hp, patrones as pt
+
+
+def test_calendario_dominio_fijo_y_orden(datos, t):
+    orden = datos.assign(City=datos["City"].astype(str)).groupby("City")["PM2.5"].median() \
+        .sort_values(ascending=False).index.tolist()
+    fig = graficos.calendario(pt.calendario(datos, "PM2.5"), "PM2.5", t, orden, seleccion=("tokyo",))
+    h = fig.data[0]
+    assert (h.zmin, h.zmax) == (0, 150)
+    assert h.y[0] == "Mumbai"
+    assert "<b>Tokyo</b>" in h.y
+    assert list(fig.layout.xaxis.ticktext)[:2] == ["Dic", "Ene"]     # meses en español
+
+
+def test_tendencia_resalta_hasta_tres_ciudades(datos, t):
+    movil = pt.serie_movil(datos, "PM2.5")
+    fig = graficos.tendencia(movil, pt.banda_ciudades(movil), "PM2.5", t,
+                             seleccion=("tokyo", "madrid", "paris", "seoul"),
+                             episodios=pt.episodios(datos, "PM2.5"))
+    lineas = [tr for tr in fig.data if tr.mode == "lines" and tr.name in
+              ("Tokyo", "Madrid", "Paris", "Seoul")]
+    assert [l.name for l in lineas] == ["Tokyo", "Madrid", "Paris"]
+    assert [l.line.color for l in lineas] == list(t.categorica)
+    assert fig.layout.yaxis.range[0] == 0
+
+
+def test_barras_mes_eje_completo(datos, t):
+    fig = graficos.barras_mes(pt.por_mes(datos, "PM2.5"), "PM2.5", t)
+    assert fig.layout.yaxis.range[0] == 0 and fig.layout.yaxis.range[1] >= 100
+    assert len(fig.layout.annotations) == 2                 # solo el mejor y el peor mes
+
+
+def test_dispersion_separa_lecturas_imposibles(datos, t):
+    fig = graficos.dispersion_sensor(datos, t)
+    puntos = {tr.name: len(tr.x) for tr in fig.data if tr.type == "scattergl"}
+    assert puntos["Lectura imposible"] == int((datos["PM2.5"] > datos["PM10"]).sum())
+    assert sum(puntos.values()) == len(datos)
+
+
+def test_efectos_una_fila_por_factor_con_veredicto(datos, t):
+    ev = hp.evaluar(datos, "PM2.5")
+    fig = graficos.efectos(ev, t)
+    textos = " ".join(a.text for a in fig.layout.annotations)
+    assert textos.count("Descartada") == (ev["veredicto"] == "Descartada").sum()
+    assert fig.layout.xaxis.range[0] == 0
+
+
+def test_detalles_de_causa(datos, t):
+    tablas = {n: hp.grupos(datos, "PM2.5", n) for n in ["Viento", "Temperatura", "Humedad"]}
+    assert len(graficos.grupos(tablas, "PM2.5", t).data) == 3
+    assert len(graficos.dumbbell_finde(hp.finde_por_ciudad(datos, "PM2.5"), "PM2.5", t).data) == 2
+    g = graficos.grupos_horizontal(hp.grupos(datos, "PM2.5", "Ciudad"), "PM2.5", t, 78)
+    assert len(g.data[0].y) == 20

@@ -131,3 +131,43 @@ def leyenda_severidad(niveles, colores):
 def vacio(mensaje="Ningún registro cumple todos los filtros activos.",
           ayuda="Amplía el rango de fechas o quita algún filtro."):
     html(f'<div class="vacio"><b>{mensaje}</b>{ayuda}</div>')
+
+
+def subseccion(kicker, titulo, texto=""):
+    html(f'''<div class="subseccion"><div class="kicker">{kicker}</div><h3>{titulo}</h3>
+{f'<p>{texto}</p>' if texto else ''}</div>''')
+
+
+def tabla_episodios(ep, contaminante, colores, nombre_nivel, n=8):
+    """Tabla HTML de los peores episodios con chip de nivel OMS."""
+    filas = []
+    for _, e in ep.head(n).iterrows():
+        nivel, indice = nombre_nivel(e["valor"])
+        filas.append(f"""<tr><td>{escape(nombre_ciudad(e['City']))}</td>
+<td class="num">{fecha(e['Date'])}</td><td class="num"><b>{e['valor']:.1f}</b></td>
+<td class="num">{e['veces_mediana']:.1f}×</td>
+<td><span class="chip"><i style="background:{colores[indice]}"></i>{nivel}</span></td></tr>""")
+    html(f"""<table class="tabla"><thead><tr><th>Ciudad</th><th class="num">Fecha</th>
+<th class="num">{contaminante} <span class="unidad">µg/m³</span></th><th class="num">vs. su mediana</th><th>Nivel OMS</th></tr></thead>
+<tbody>{''.join(filas)}</tbody></table>""")
+
+
+def tabla_simple(df, alto_max=360):
+    """Tabla HTML con scroll (st.dataframe no respeta el CSS del modo oscuro)."""
+    cab = "".join(f'<th class="{"num" if df[c].dtype.kind in "if" else ""}">{escape(str(c))}</th>'
+                  for c in df.columns)
+    filas = "".join(
+        "<tr>" + "".join(f'<td class="{"num" if df[c].dtype.kind in "if" else ""}">{escape(str(v))}</td>'
+                         for c, v in zip(df.columns, fila)) + "</tr>"
+        for fila in df.itertuples(index=False))
+    html(f'<div class="tabla-scroll" style="max-height:{alto_max}px"><table class="tabla">'
+         f'<thead><tr>{cab}</tr></thead><tbody>{filas}</tbody></table></div>')
+
+
+def tarjeta_texto(rotulo, titulo, cuerpo, pie=""):
+    html(f"""<div class="tarjeta-texto"><div class="rotulo">{rotulo}</div><h4>{titulo}</h4>
+<div class="cuerpo">{cuerpo}</div>{f'<div class="pie">{pie}</div>' if pie else ''}</div>""")
+
+
+def nombre_ciudad(c):
+    return str(c).title()
