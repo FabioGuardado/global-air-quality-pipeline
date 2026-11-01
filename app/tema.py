@@ -362,6 +362,15 @@ h1, h2, h3, h4, p, span, label, li {{ font-family: var(--fuente); }}
   background-color: color-mix(in srgb, var(--acento) 25%, {t.superficie}) !important;
   border-color: var(--acento) !important; color: var(--tinta) !important; }}
 [data-testid="stBaseButton-secondary"]:hover {{ border-color: var(--acento) !important; color: var(--tinta) !important; }}
+/* Streamlit >= 1.5x: los segmented controls/pills son button[data-variant] y marcan la selección con data-selected */
+button[data-variant="segmented_control"], button[data-variant="pills"] {{
+  background-color: {t.pagina} !important; border-color: {t.eje} !important; color: var(--tinta-2) !important; }}
+button[data-variant="segmented_control"] *, button[data-variant="pills"] * {{ color: inherit !important; }}
+button[data-variant="segmented_control"][data-selected], button[data-variant="pills"][data-selected] {{
+  background-color: color-mix(in srgb, var(--acento) 25%, {t.superficie}) !important;
+  border-color: var(--acento) !important; color: var(--tinta) !important; }}
+button[data-variant="segmented_control"]:not([data-selected]):hover, button[data-variant="pills"]:not([data-selected]):hover {{
+  border-color: var(--acento) !important; color: var(--tinta) !important; }}
 [data-testid="stTooltipContent"], [data-baseweb="tooltip"] > div {{ background:{t.superficie} !important; color: var(--tinta) !important; }}
 [data-testid="stExpander"] details {{ background: var(--superficie); border-color: var(--borde); }}
 [data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"] svg,
