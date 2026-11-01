@@ -1,8 +1,10 @@
-"""Filtros globales sincronizados. Todo el estado vive en st.session_state con prefijo `f_`.
+"""Filtros globales sincronizados (barra lateral). Todo el estado vive en st.session_state con prefijo `f_`.
 
 Los gráficos no filtran por su cuenta: escriben en este mismo estado (filtro cruzado) y la app
 vuelve a ejecutarse con los filtros nuevos, así todas las vistas responden a la vez.
 """
+
+from html import escape
 
 import pandas as pd
 import streamlit as st
@@ -10,6 +12,8 @@ import streamlit as st
 from air_quality.config import CIUDADES, REGIONES
 from air_quality.metricas import Filtros, nombre_ciudad
 from air_quality.severidad import METAS_OMS, nombres_niveles
+
+import componentes as ui
 
 CONTAMINANTES = list(METAS_OMS)
 ETIQUETA_CONT = {"PM2.5": "PM₂.₅", "PM10": "PM₁₀", "NO2": "NO₂"}
@@ -74,25 +78,28 @@ def ciudad_de_seleccion(estado, indice_custom):
     return None
 
 
-def barra(df):
-    """Dibuja la fila de filtros y devuelve los `Filtros` activos."""
+def barra(df, pagina_auditoria=None):
+    """Dibuja los filtros en la barra lateral y devuelve los `Filtros` activos."""
     minimo, maximo = df["Date"].min().date(), df["Date"].max().date()
-    with st.container(key="barra-filtros"):
-        c_fecha, c_reg, c_ciu, c_cont, c_niv, c_reset = st.columns([2.1, 1.9, 2.2, 2.3, 2.2, 1.0],
-                                                                   vertical_alignment="bottom")
-        c_fecha.date_input("Periodo", key="f_fechas", min_value=minimo, max_value=maximo,
-                           format="DD/MM/YYYY")
-        c_reg.multiselect("Región", REGIONES, key="f_regiones", placeholder="Todas",
-                          on_change=_al_cambiar_region)
-        c_ciu.multiselect("Ciudad", _ciudades_de(st.session_state["f_regiones"]), key="f_ciudades",
-                          format_func=nombre_ciudad, placeholder="Todas")
-        c_cont.segmented_control("Contaminante", CONTAMINANTES, key="f_cont",
-                                 format_func=ETIQUETA_CONT.get, on_change=_al_cambiar_contaminante)
+    with st.sidebar:
+        st.html('<div class="lateral-titulo">Filtros</div>'
+                '<p class="lateral-sub">Se aplican a los cuatro capítulos.</p>')
+        st.date_input("Periodo", key="f_fechas", min_value=minimo, max_value=maximo, format="DD/MM/YYYY")
+        st.multiselect("Región", REGIONES, key="f_regiones", placeholder="Todas",
+                       on_change=_al_cambiar_region)
+        st.multiselect("Ciudad", _ciudades_de(st.session_state["f_regiones"]), key="f_ciudades",
+                       format_func=nombre_ciudad, placeholder="Todas")
+        st.segmented_control("Contaminante", CONTAMINANTES, key="f_cont", format_func=ETIQUETA_CONT.get,
+                             on_change=_al_cambiar_contaminante, width="stretch")
         cont = st.session_state["f_cont"] or "PM2.5"
-        c_niv.multiselect("Severidad OMS", nombres_niveles(cont), key="f_niveles",
-                          placeholder="Todos los niveles")
-        c_reset.button("Limpiar", on_click=restablecer, args=(df,), use_container_width=True,
-                       help="Quitar todos los filtros")
+        st.multiselect("Severidad OMS", nombres_niveles(cont), key="f_niveles",
+                       placeholder="Todos los niveles")
+        st.button("Limpiar filtros", on_click=restablecer, args=(df,), width="stretch",
+                  icon=":material/filter_alt_off:", key="btn_limpiar")
+        st.html(f'<div class="lateral-pie">{len(df):,} mediciones · {df["City"].nunique()} ciudades<br>'
+                f'Fuente: {ui.fuente()}</div>')
+        if pagina_auditoria is not None:
+            st.page_link(pagina_auditoria, label="Cómo se limpiaron los datos", icon=":material/fact_check:")
 
     fechas = st.session_state["f_fechas"]
     desde = pd.Timestamp(fechas[0]) if len(fechas) > 0 else None
@@ -101,6 +108,38 @@ def barra(df):
                    regiones=tuple(st.session_state["f_regiones"]),
                    ciudades=tuple(st.session_state["f_ciudades"]),
                    contaminante=cont, niveles=tuple(st.session_state["f_niveles"]))
+
+
+def _fecha_corta(d):
+    return d.strftime("%d/%m/%Y")
+
+
+def resumen_activo(f: Filtros, df):
+    """Línea "Vista: …" bajo el título de cada capítulo. Lo filtrado se resalta con el acento.
+
+    Con la barra lateral contraída es la única pista de qué se está mirando.
+    """
+    def parte(texto, filtrado):
+        return f'<b class="on">{escape(texto)}</b>' if filtrado else escape(texto)
+
+    partes = [parte(ETIQUETA_CONT[f.contaminante], f.contaminante != "PM2.5")]
+    if f.ciudades:
+        partes.append(parte(", ".join(nombre_ciudad(c) for c in f.ciudades), True))
+    elif f.regiones:
+        partes.append(parte(", ".join(f.regiones), True))
+    else:
+        partes.append(parte(f"{df['City'].nunique()} ciudades", False))
+    completo = ((f.desde is None or f.desde <= df["Date"].min()) and
+                (f.hasta is None or f.hasta >= df["Date"].max()))
+    if completo:
+        partes.append(parte("todo el periodo", False))
+    else:
+        desde = f.desde or df["Date"].min()
+        hasta = f.hasta or desde
+        partes.append(parte(f"{_fecha_corta(desde)} – {_fecha_corta(hasta)}", True))
+    if f.niveles:
+        partes.append(parte(", ".join(f.niveles), True))
+    return f'<div class="activos"><span>Vista</span>{" · ".join(partes)}</div>'
 
 
 def hay_filtros(f: Filtros, df):
