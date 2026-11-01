@@ -1,7 +1,12 @@
-pandas
-numpy 
-matplotlib 
-seaborn 
-scipy 
-scikit-learn 
-missingno
+# Entorno de ejecución: pipeline, notebook y dashboard.
+# Instala también el paquete local (src/air_quality) en modo editable.
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.4
+matplotlib>=3.8
+seaborn>=0.13
+missingno>=0.5
+streamlit>=1.40
+plotly>=5.20
+-e .
