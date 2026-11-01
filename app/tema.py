@@ -6,6 +6,8 @@ Paletas validadas con el validador de la skill dataviz (OKLab, simulación CVD):
   En oscuro el ancla se invierte: lo leve es oscuro (se funde con el fondo) y lo severo brilla.
 - `secuencial`: la misma familia de tono, continua, para concentraciones (mapa, calendario).
 - `acento`: azul, único color de énfasis y selección. No compite con la rampa cálida.
+- `categorica`: primeros 3 slots de la paleta documentada de la skill (validados en todos los
+  pares, para líneas y dispersión). Solo cuando se comparan ciudades seleccionadas.
 """
 
 from dataclasses import dataclass
@@ -34,6 +36,8 @@ class Tema:
     severidad: tuple       # índice 0..5 de air_quality.severidad
     secuencial: tuple      # bajo → alto
     texto_sobre: tuple     # color de etiqueta legible sobre cada paso de severidad
+    categorica: tuple      # hasta 3 ciudades a la vez (slots 1-3 validados en todos los pares)
+    critico: str = "#d03b3b"   # estado: lectura inválida (siempre con ícono + etiqueta)
 
 
 CLARO = Tema(
@@ -46,6 +50,7 @@ CLARO = Tema(
     severidad=("#ed987d", "#e37958", "#d65a32", "#bf4213", "#a23102", "#832600"),
     secuencial=("#ffeee8", "#fecab9", "#f99b7e", "#e4673f", "#bc3e0d", "#902a00", "#691d00"),
     texto_sobre=("#0b0b0b", "#0b0b0b", "#ffffff", "#ffffff", "#ffffff", "#ffffff"),
+    categorica=("#2a78d6", "#eb6834", "#1baf7a"),
 )
 
 OSCURO = Tema(
@@ -58,6 +63,7 @@ OSCURO = Tema(
     severidad=("#8b381d", "#ab4321", "#c9532c", "#e4673f", "#f48462", "#fea387"),
     secuencial=("#281c18", "#532719", "#843217", "#bc461e", "#e76a43", "#fe9979", "#fecab9"),
     texto_sobre=("#ffffff", "#ffffff", "#ffffff", "#0b0b0b", "#0b0b0b", "#0b0b0b"),
+    categorica=("#3987e5", "#d95926", "#199e70"),
 )
 
 
@@ -193,6 +199,50 @@ h1, h2, h3, h4, p, span, label, li {{ font-family: var(--fuente); }}
 .leyenda-sev em {{ color:var(--tenue); font-style:normal; font-variant-numeric: tabular-nums; }}
 .vacio {{ border:1px dashed var(--eje); border-radius:16px; padding:2.4rem; text-align:center; color:var(--tinta-2); }}
 .vacio b {{ color:var(--tinta); display:block; font-size:1.1rem; margin-bottom:.3rem; }}
+.subseccion {{ margin: 2.2rem 0 .9rem; border-top: 1px solid var(--grilla); padding-top: 1.3rem; }}
+.subseccion .kicker {{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--tenue);
+  font-weight:700; }}
+.subseccion h3 {{ font-size:1.25rem; font-weight:650; letter-spacing:-.015em; color:var(--tinta);
+  margin:.3rem 0 0; padding:0; }}
+.subseccion p {{ color:var(--tinta-2); font-size:.95rem; line-height:1.5; margin:.4rem 0 0; max-width:75ch; }}
+.tabla {{ width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric: tabular-nums; }}
+.tabla th {{ text-align:left; font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; color:var(--tenue);
+  font-weight:600; padding:.45rem .5rem; border-bottom:1px solid var(--eje); }}
+.tabla td {{ padding:.5rem .5rem; border-bottom:1px solid var(--grilla); color:var(--tinta-2); }}
+.tabla td b {{ color:var(--tinta); }}
+.tabla .num {{ text-align:right; }}
+.unidad {{ text-transform:none; letter-spacing:0; }}
+.tabla tr:last-child td {{ border-bottom:none; }}
+.tabla-scroll {{ overflow:auto; }}
+.tabla-scroll thead th {{ position:sticky; top:0; background:var(--superficie); }}
+.chip {{ display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--tinta-2); }}
+.chip i {{ width:.7rem; height:.7rem; border-radius:3px; display:inline-block; }}
+.tarjeta-texto .rotulo {{ font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tenue);
+  font-weight:600; }}
+.tarjeta-texto h4 {{ font-size:1.15rem; font-weight:650; color:var(--tinta); margin:.4rem 0 .5rem; padding:0;
+  letter-spacing:-.01em; line-height:1.3; }}
+.tarjeta-texto .cuerpo {{ color:var(--tinta-2); font-size:.92rem; line-height:1.55; }}
+.tarjeta-texto .cuerpo b {{ color:var(--tinta); }}
+.tarjeta-texto .cuerpo ul {{ margin:.4rem 0 0; padding-left:1.1rem; }}
+.tarjeta-texto .cuerpo li {{ margin:.25rem 0; }}
+.tarjeta-texto .pie {{ margin-top:.8rem; font-size:.8rem; color:var(--tenue); }}
+.cifra-alerta {{ font-size: clamp(3rem, 5vw, 4.4rem); font-weight:700; letter-spacing:-.045em; line-height:1;
+  color:var(--tinta); margin:.5rem 0 .2rem; }}
+.cifra-alerta small {{ font-size:.45em; color:var(--tinta-2); font-weight:600; }}
+.estado-critico {{ display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; color:#d03b3b; }}
+.veredictos {{ display:grid; gap:.55rem; margin:1.1rem 0 .6rem; padding-top:1rem; border-top:1px solid var(--grilla); }}
+.veredictos div {{ display:grid; grid-template-columns: 9.5rem 1fr; gap:.6rem; font-size:.84rem; line-height:1.4; }}
+.veredictos b {{ color:var(--tinta); font-weight:600; }}
+.veredictos span {{ color:var(--tinta-2); }}
+.conclusion {{ background: var(--superficie); border:1px solid var(--borde); border-left:4px solid var(--acento);
+  border-radius:16px; padding:1.4rem 1.6rem; }}
+.conclusion .kicker {{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--acento);
+  font-weight:700; }}
+.conclusion h3 {{ font-size:1.4rem; font-weight:650; letter-spacing:-.02em; color:var(--tinta);
+  margin:.35rem 0 .5rem; padding:0; line-height:1.25; }}
+.conclusion p, .conclusion li {{ color:var(--tinta-2); font-size:.97rem; line-height:1.55; }}
+.conclusion b {{ color:var(--tinta); }}
 .chip-filtro {{ display:inline-block; font-size:.78rem; color:var(--tinta-2); margin:.1rem 0 .2rem; }}
 .chip-filtro b {{ color: var(--acento); font-weight:600; }}
 """
