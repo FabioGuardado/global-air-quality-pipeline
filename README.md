@@ -19,10 +19,16 @@ variables meteorológicas en 20 ciudades).
 │   └── processed/           # salida del pipeline, la que consume el dashboard
 ├── notebooks/
 │   └── eda_pipeline.ipynb   # narrativa de las Fases 0-V, importa src/air_quality
-├── src/air_quality/         # lógica del pipeline como paquete de Python
+├── src/air_quality/         # pipeline, escala de severidad OMS y métricas (paquete de Python)
+├── app/                     # dashboard de Streamlit (Fase II)
+│   ├── streamlit_app.py     # punto de entrada
+│   ├── tema.py              # paletas validadas, plantilla Plotly y CSS (claro/oscuro)
+│   ├── filtros.py           # filtros globales y filtro cruzado
+│   └── capitulos/           # un módulo por capítulo de la narrativa
 ├── tests/
 │   ├── unit/                # cada módulo del paquete, con datos sintéticos
-│   └── integration/         # pipeline completo sobre el dataset real y el notebook
+│   ├── integration/         # pipeline completo sobre el dataset real y el notebook
+│   └── app/                 # la app con streamlit.testing y los constructores de gráficos
 ├── paper/                   # artículo IEEE (LaTeX), figuras y PDF compilado
 ├── pyproject.toml
 ├── requirements.txt         # ejecución (pipeline, notebook, dashboard)
@@ -44,6 +50,12 @@ así que el notebook, los tests y el dashboard importan el mismo código.
 
 ## Uso
 
+**Dashboard:**
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
 **Regenerar el dataset procesado** a partir del crudo:
 
 ```bash
@@ -64,6 +76,7 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/eda_pipeline.ipynb
 pytest                      # todo (incluye el notebook, ~30 s)
 pytest -m "not slow"        # sin ejecutar el notebook
 pytest tests/unit           # solo unitarios
+pytest tests/app            # solo la app
 pytest tests/unit/test_derivadas.py::test_delta_reinicia_en_cada_ciudad   # un test
 pytest --cov=air_quality    # con cobertura
 ```
@@ -85,5 +98,5 @@ Cada decisión queda registrada en una bitácora (`air_quality.bitacora.Bitacora
 justificación.
 
 **Resultado:** de 30,450 filas crudas quedan **5,075 observaciones** únicas
-(20 ciudades × días) y 21 columnas sin nulos. El diccionario de datos está al final del
+(20 ciudades × días) y 22 columnas sin nulos (incluida la región). El diccionario de datos está al final del
 notebook.

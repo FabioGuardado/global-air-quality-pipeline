@@ -55,7 +55,7 @@ def ejecutar(df_raw):
     df = aplicar_imputacion(df, plan, bitacora)
 
     # Fase IV: derivadas → codificación → escalado
-    df_final = agregar_ordinales(agregar_derivadas(df))
+    df_final = agregar_ordinales(agregar_derivadas(df, bitacora=bitacora))
     dummies = dummies_ciudad(df_final)
 
     continuas = [c for c in config.CONTINUAS if c in df_final.columns]
@@ -90,8 +90,9 @@ def main(argv=None):
     resultado = ejecutar(cargar_crudo(args.entrada))
     args.salida.parent.mkdir(parents=True, exist_ok=True)
     resultado.procesado.to_csv(args.salida, index=False)
-    print(f"Exportado: {args.salida} → {len(resultado.procesado):,} filas x "
-          f"{resultado.procesado.shape[1]} columnas")
+    # Solo ASCII: la consola de Windows (cp1252) no puede imprimir "→"
+    print(f"Exportado: {args.salida} ({len(resultado.procesado):,} filas x "
+          f"{resultado.procesado.shape[1]} columnas)")
     return resultado
 
 

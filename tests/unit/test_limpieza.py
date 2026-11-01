@@ -46,7 +46,7 @@ def test_normalizar_claves(crudo_sintetico):
     bitacora = Bitacora()
     df = normalizar_claves(crudo_sintetico, bitacora)
 
-    assert set(df["City"]) == {"lima", "sao paulo", "paris"}
+    assert set(df["City"]) == {"madrid", "mexico city", "paris"}
     assert pd.api.types.is_datetime64_any_dtype(df["Date"])
     assert df["Date"].isna().sum() == 0
     assert df["Date"].min() == pd.Timestamp("2023-01-01")

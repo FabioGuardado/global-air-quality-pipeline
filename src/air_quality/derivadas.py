@@ -3,15 +3,30 @@
 import numpy as np
 import pandas as pd
 
-from .config import ORDEN_VIENTO, TRIMESTRE, UMBRALES_OMS
+from .bitacora import _registrar
+from .config import CIUDADES, ORDEN_VIENTO, REGIONES, TRIMESTRE, UMBRALES_OMS
 
 
-def agregar_derivadas(df, umbrales=UMBRALES_OMS):
-    """Agrega las derivadas físicas, de severidad, de tendencia y temporales.
+def agregar_region(df, bitacora=None):
+    """Región geográfica de cada ciudad (categoría ordenada según `REGIONES`)."""
+    sin_region = sorted(set(df["City"].dropna()) - set(CIUDADES))
+    if sin_region:
+        raise ValueError(f"Ciudades sin región asignada en config.CIUDADES: {sin_region}")
+    df = df.copy()
+    df["region"] = pd.Categorical(df["City"].map(lambda c: CIUDADES[c][0]),
+                                  categories=REGIONES, ordered=True)
+    _registrar(bitacora, "IV", "region", "Derivar región desde City",
+               f"{df['City'].nunique()} ciudades agrupadas en {df['region'].nunique()} regiones "
+               "para filtros jerárquicos (región → ciudad)")
+    return df
+
+
+def agregar_derivadas(df, umbrales=UMBRALES_OMS, bitacora=None):
+    """Agrega las derivadas físicas, de severidad, de tendencia, temporales y la región.
 
     Requiere `mes` y `dia_semana` (ver `limpieza.agregar_variables_tiempo`).
     """
-    df = df.copy(deep=True).sort_values(["City", "Date"])
+    df = agregar_region(df.copy(deep=True).sort_values(["City", "Date"]), bitacora)
 
     # Fracción fina: PM2.5 es un subconjunto de PM10, el ratio debería caer en (0, 1]
     df["ratio_pm"] = df["PM2.5"] / df["PM10"]
