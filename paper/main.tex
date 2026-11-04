@@ -42,9 +42,9 @@ El monitoreo y evaluación de la calidad del aire representa un desafío fundame
 \textbf{Resultados y hallazgos clave:}
 \begin{itemize}
     \item \textbf{Saneamiento y preservación de varianza:} Tras normalizar texto en \texttt{City}/\texttt{Country}, se identificó y depuró un \textbf{45.64\% de duplicidad exacta (13,897 registros)}, más un remanente de duplicados parciales por clave de negocio (\emph{City+Country+Date}), logrando recuperar un conjunto continuo de 5,075 observaciones con \textbf{0.00\% de outliers extremales} fuera de los límites de Tukey \cite{Tukey1977} y una retención de varianza estocástica superior al \textbf{97.5\%}.
-    \item \textbf{Cumplimiento crítico de guías de la OMS:} Más del \textbf{93.17\% de los días monitoreados superan el umbral diario de $\text{PM}_{2.5}$} de la OMS \cite{OMS2021}, seguido de un \textbf{82.92\% para $\text{PM}_{10}$} y un \textbf{79.34\% para $\text{NO}_2$}.
+    \item \textbf{Cumplimiento crítico de guías de la OMS:} Más del \textbf{93.16\% de los días monitoreados superan el umbral diario de $\text{PM}_{2.5}$} de la OMS \cite{OMS2021}, seguido de un \textbf{81.67\% para $\text{PM}_{10}$} y un \textbf{78.29\% para $\text{NO}_2$}.
     \item \textbf{Inexistencia del ``efecto fin de semana'':} Las pruebas no paramétricas de Mann-Whitney U confirmaron que las concentraciones de $\text{NO}_2$, $\text{CO}$ y $\text{PM}_{2.5}$ no varían significativamente entre días laborales y fines de semana ($p > 0.18$), demostrando emisiones continuas e ininterrumpidas.
-    \item \textbf{Independencia meteorológica:} Se observó una correlación muy débil entre factores climáticos y contaminantes ($|r_s| < 0.03$), así como entre $\text{PM}_{2.5}$ y $\text{PM}_{10}$ ($r = 0.018$).
+    \item \textbf{Independencia meteorológica:} Se observó una correlación muy débil entre factores climáticos y contaminantes ($|r_s| < 0.03$). La correlación casi nula entre $\text{PM}_{2.5}$ y $\text{PM}_{10}$ ($r = 0.004$) no indica independencia sino una anomalía de calidad del dato: el 35.8\% de las lecturas tiene $\text{PM}_{2.5} > \text{PM}_{10}$, físicamente imposible.
 \end{itemize}
 
 \textbf{Conclusión:} Este estudio proporciona un diagnóstico integral del estado de los datos, demostrando que la contaminación ambiental global responde a patrones antropogénicos de fondo y preparando un dataset depurado y confiable para su posterior modelado predictivo.
@@ -258,7 +258,7 @@ Las correlaciones de Spearman resultaron muy débiles ($r_s = -0.022$ para Temp 
 \end{figure}
 
 \subsubsection{5. ¿Qué contaminantes se mueven juntos?}
-Se observó una correlación prácticamente nula entre $\text{PM}_{2.5}$ y $\text{PM}_{10}$ ($r = 0.004$), descartando colinealidad fuerte (Fig. \ref{fig:pm10_pm25}).
+Se observó una correlación prácticamente nula entre $\text{PM}_{2.5}$ y $\text{PM}_{10}$ ($r = 0.004$; Fig. \ref{fig:pm10_pm25}). Más que independencia, es una anomalía: como $\text{PM}_{2.5}$ es una fracción de $\text{PM}_{10}$, cabría esperar una relación positiva fuerte. La variable derivada \texttt{ratio\_pm\_imposible} marcó que el 35.8\% de las lecturas tiene $\text{PM}_{2.5} > \text{PM}_{10}$, físicamente imposible; estas filas se conservaron con su bandera y no se eliminaron, por lo que las conclusiones sobre la relación entre ambos contaminantes deben leerse con cautela.
 
 \begin{figure}[htbp]
   \centering
@@ -268,7 +268,7 @@ Se observó una correlación prácticamente nula entre $\text{PM}_{2.5}$ y $\tex
 \end{figure}
 
 \subsubsection{6. ¿Con qué frecuencia se superan los umbrales de la OMS?}
-El \textbf{93.17\%} de los días superan el límite de $\text{PM}_{2.5}$ de la OMS, el \textbf{82.92\%} en $\text{PM}_{10}$ y el \textbf{79.34\%} en $\text{NO}_2$ \cite{OMS2021} (Fig. \ref{fig:exceso_oms}).
+El \textbf{93.16\%} de los días superan el límite de $\text{PM}_{2.5}$ de la OMS, el \textbf{81.67\%} en $\text{PM}_{10}$ y el \textbf{78.29\%} en $\text{NO}_2$ \cite{OMS2021} (Fig. \ref{fig:exceso_oms}).
 
 \begin{figure}[htbp]
   \centering
@@ -294,7 +294,115 @@ La frecuencia diaria impide capturar dinámicas intradía y no se cuenta con dat
 \subsection{Recomendaciones Técnicas y de Salud Pública}
 Se sugiere implementar variables con rezago temporal (\emph{lags}), algoritmos KNN/MICE para imputación en producción y estructurar políticas continuas de reducción de emisiones urbanas e industriales \cite{Rivas2022}.
 
-\begin{thebibliography}{10}
+% =====================================================================
+% ADENDA: ARQUITECTURA VISUAL DEL DASHBOARD
+% =====================================================================
+\section*{Adenda al Artículo}
+
+\subsection*{Arquitectura Visual y Diseño de la Interfaz}
+Esta adenda complementa la Sección~V describiendo el tablero analítico (Streamlit y Plotly) que expone los resultados del \emph{pipeline} a un público no técnico. Cada decisión de diseño se justifica con la teoría de percepción gráfica, la taxonomía de tareas visuales y la carga cognitiva, y se ilustra con casos de uso reales sobre las 5,075 observaciones procesadas (20 ciudades, 2023).
+
+\subsubsection*{Marco: audiencia, tareas y narrativa}
+El tablero se organiza como un recorrido de cuatro capítulos y un anexo, de modo que cada pantalla responda una sola pregunta: \emph{cuánto} se incumple la guía de la OMS (Diagnóstico), \emph{dónde y cuándo} aparecen los episodios (Patrones), \emph{qué lo explica} (Causa raíz) y \emph{qué decidir} (Recomendación); el anexo de Auditoría documenta la procedencia del dato. El orden materializa el mantra de Shneiderman, \emph{overview first, zoom and filter, details on demand} \cite{Shneiderman1996}: la vista general abre la narrativa, los filtros globales permiten acotarla y los bloques de ``Detalle a demanda'' contienen lo secundario.
+
+\subsubsection*{Canales visuales y codificación}
+La asignación de atributos a canales sigue el orden de precisión perceptual de Cleveland y McGill \cite{Cleveland1984} y las reglas de expresividad y efectividad de Mackinlay \cite{Mackinlay1986}: la posición y la longitud sobre un eje común se reservan para las magnitudes que el usuario debe comparar con exactitud, y el color se destina a categorías ordenadas o a la selección \cite{Munzner2014,Bertin2011}. La Tabla~\ref{tab:canales} resume la codificación.
+
+\begin{table}[htbp]
+\caption{Codificación visual de los atributos del tablero.}
+\label{tab:canales}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.23\linewidth}p{0.42\linewidth}p{0.29\linewidth}@{}}
+\toprule
+Atributo & Marca y canal & Vista \\
+\midrule
+\% de días por nivel OMS & Longitud sobre eje común (0--100\%) & Barras apiladas por ciudad \\
+Nivel OMS (ordinal) & Luminosidad en un solo matiz cálido, 6 pasos & Barras, KPI, antes/después \\
+Mediana (continua) & Color secuencial con dominio fijo $0$--$2\times$IT-1 & Mapa y calendario \\
+Selección activa & Azul de acento fuera de la rampa; opacidad 1 vs.\ 0.28 & Filtro cruzado \\
+Tamaño de efecto & Posición en escala alineada y franja de umbral & Marcador de hipótesis \\
+Lectura inválida & Posición, región sombreada y color crítico & Dispersión PM$_{10}$--PM$_{2.5}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Tres decisiones merecen justificación. \emph{(i)}~La severidad es ordinal, por lo que se codifica con una rampa de un solo matiz y pasos de luminosidad separados, siguiendo las recomendaciones para esquemas secuenciales \cite{Harrower2003}; el mismo índice de color significa lo mismo para todos los contaminantes. \emph{(ii)}~Los dominios son fijos y todos los ejes numéricos parten de cero, de modo que la altura o el color de una marca no exageran diferencias pequeñas \cite{Tufte2001}; por eso el calendario de la Fig.~\ref{fig:dash_patrones} muestra con honestidad que no hay temporada limpia. \emph{(iii)}~El color nunca es el único canal: los veredictos llevan icono y texto, las medidas usan formas distintas (círculo y rombo) y las etiquetas son directas, lo que preserva la lectura ante daltonismo \cite{Ware2012}. La paleta se validó por contraste y simulación de deficiencias de color en ambos temas (claro y oscuro); en el oscuro la rampa se invierte para que lo severo sea lo más brillante.
+
+\subsubsection*{Taxonomía de tareas visuales}
+Cada capítulo se diseñó para una tarea explícita de la tipología de Brehmer y Munzner \cite{Brehmer2013} (\emph{por qué}, \emph{cómo}, \emph{qué}), de forma que la vista y la interacción se deriven de la tarea y no al revés (Tabla~\ref{tab:tareas}).
+
+\begin{table}[htbp]
+\caption{Tareas visuales por capítulo.}
+\label{tab:tareas}
+\centering
+\footnotesize
+\begin{tabular}{@{}p{0.17\linewidth}p{0.24\linewidth}p{0.30\linewidth}p{0.20\linewidth}@{}}
+\toprule
+Capítulo & Tarea & Vistas & Interacción \\
+\midrule
+01 Diagnóstico & Resumir, localizar & Barras apiladas, mapa, KPI & Filtro cruzado \\
+02 Patrones & Explorar, identificar & Calendario, serie, dispersión & Periodo, región \\
+03 Causa raíz & Comparar, verificar & Marcador de hipótesis, múltiplos & Selector de detalle \\
+04 Recomendación & Descubrir, simular & Antes/después, hoja de ruta & Deslizador \\
+Anexo & Verificar procedencia & Embudo, \emph{dot plot} & Filtro por fase \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La interacción se limita a las operaciones que sirven a esas tareas (seleccionar, filtrar, reconfigurar), en línea con la taxonomía de dinámicas interactivas \cite{Heer2012}; se desactivaron el zoom libre, la barra de herramientas y la leyenda clicable de Plotly porque añaden grados de libertad sin tarea que los justifique.
+
+\subsubsection*{Minimización de la carga cognitiva}
+Siguiendo la teoría de la carga cognitiva \cite{Sweller1988}, el diseño reduce la carga \emph{extrínseca} para dejar capacidad a la \emph{pertinente}:
+\begin{itemize}
+\item \textbf{Mínima tinta y etiquetado directo:} sin bordes, sin 3D, con una línea de rejilla y valores escritos sobre las marcas, de modo que no hay que cruzar leyenda y gráfico \cite{Tufte2001,Few2013}.
+\item \textbf{Titulares declarativos:} cada capítulo abre con su conclusión (p.\,ej., ``9 de cada 10 días el aire supera la guía'') y el gráfico la verifica, en lugar de obligar a inferirla.
+\item \textbf{Foco $+$ contexto:} al seleccionar una ciudad, las demás se atenuan (opacidad 0.28) pero no desaparecen \cite{Furnas1986}, así la comparación se conserva.
+\item \textbf{Estado único y filtro cruzado:} un clic en una barra, un punto o el ranking actualiza todas las vistas, evitando que el usuario sincronice controles manualmente.
+\item \textbf{Divulgación progresiva:} las tablas completas y los detalles por factor están plegados hasta que se piden.
+\item \textbf{Referencias normativas siempre visibles:} la guía y las metas IT-1 a IT-4 de la OMS \cite{OMS2021} aparecen como líneas, ticks o niveles, de forma que ningún valor se interpreta sin su referencia.
+\end{itemize}
+
+\subsubsection*{Casos de uso reales}
+Las Figs.~\ref{fig:dash_diag}--\ref{fig:dash_reco} son capturas del tablero en ejecución, anotadas con letras que se explican en cada pie.
+
+\textbf{Caso 1: diagnóstico y filtro cruzado.} Al hacer clic sobre Johannesburg en el gráfico de niveles (Fig.~\ref{fig:dash_diag}), el titular, los KPI y el mapa se recalculan: 95.1\% de sus días superan la guía (1.9 puntos porcentuales sobre el total) y su mediana de PM$_{2.5}$ es 77.7~\textmu g/m$^3$. Las otras 19 ciudades permanecen visibles y atenuadas: la brecha entre la primera (95\%) y la última (Seúl, 90\%) es de solo 5 puntos, por lo que el problema es generalizado.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fig9_dash_diagnostico.png}
+  \caption{Capítulo 01 (Diagnóstico) con Johannesburg seleccionada. (A)~Filtro de ciudad sincronizado con el clic. (B)~KPI principal con su delta frente al total. (C)~Barra resaltada y resto atenuado (foco $+$ contexto). (D)~Ciudad marcada en el mapa con un anillo azul. (E)~Texto de lectura generado para la selección.}
+  \label{fig:dash_diag}
+\end{figure}
+
+\textbf{Caso 2: patrones y anomalías.} El calendario ciudad$\times$semana, la serie con media móvil de 7 días y las barras mensuales (Fig.~\ref{fig:dash_patrones}) muestran la ausencia de estacionalidad: el porcentaje de días sobre la guía oscila entre 90\% (mayo) y 96\% (junio). Los episodios (días por encima del percentil 95 de su ciudad) suman 263, y la racha más larga sobre IT-1 dura 7 días (Bangkok). Además, el 35.8\% de las lecturas presenta PM$_{2.5}>$PM$_{10}$, físicamente imposible y repartido de forma pareja entre ciudades, lo que apunta a un problema sistemático de calibración y es coherente con la correlación casi nula entre ambas variables de la Sección~IV: se interpreta como una anomalía del dato, no como independencia.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fig10_dash_patrones.png}
+  \caption{Capítulo 02 (Patrones y anomalías). (A)~Calendario de la mediana semanal por ciudad con escala fija. (B)~Media móvil de 7 días con banda intercuartílica y línea de guía OMS. (C)~Porcentaje de días sobre la guía por mes, con eje completo de 0 a 100\%.}
+  \label{fig:dash_patrones}
+\end{figure}
+
+\textbf{Caso 3: causa raíz.} El marcador de hipótesis (Fig.~\ref{fig:dash_causa}) exige a cada factor superar dos filtros: significancia estadística ($p<0.05$) y relevancia práctica (efecto mayor al 10\% de la mediana, 7.8~\textmu g/m$^3$). Los seis factores quedan descartados. Ciudad presenta el mayor efecto (15~\textmu g/m$^3$) pero con $p=0.85$, y el panel lateral lo señala explícitamente: una diferencia grande sin significancia no es evidencia. La conclusión, una contaminación de fondo y constante, se obtiene sin tablas de coeficientes.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fig11_dash_causa.png}
+  \caption{Capítulo 03 (Causa raíz). (A)~Veredicto con icono y valor $p$ por factor. (B)~Franja de efecto despreciable y umbral de relevancia. (C)~Ciudad: efecto grande pero no significativo. (D)~Guía de lectura de los cuatro veredictos y de las pruebas no paramétricas utilizadas.}
+  \label{fig:dash_causa}
+\end{figure}
+
+\textbf{Caso 4: recomendación y simulación.} Con el deslizador en $-40\%$ (Fig.~\ref{fig:dash_reco}), los días que cumplen la guía pasan de 7\% a 14\% y los días sobre IT-1 de 52\% a 17\%, pero ninguna meta se alcanza: la hoja de ruta indica que se requiere recortar al menos 50\% para IT-1 y 90\% para la guía. Así el usuario descubre por sí mismo por qué la respuesta debe ser por etapas. El supuesto de recorte proporcional se declara en pantalla porque el Capítulo~03 no halló factores externos que modulen la contaminación.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fig12_dash_recomendacion.png}
+  \caption{Capítulo 04 (Recomendación) con un escenario de $-40\%$. (A)~Deslizador de recorte. (B)~KPI reactivos con su valor actual. (C)~Distribución por nivel OMS, hoy y con el escenario, con la misma rampa de severidad. (D)~Hoja de ruta con el recorte necesario por meta y la línea del escenario.}
+  \label{fig:dash_reco}
+\end{figure}
+
+\begin{thebibliography}{99}
 
 \bibitem{OMS2021}
 World Health Organization, \emph{WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide}, Geneva, Switzerland: World Health Organization, 2021.
@@ -322,6 +430,45 @@ D. L. L. Rivas y E. A. M. Portillo, ``Evaluación de la calidad del aire y su im
 
 \bibitem{Little2019}
 R. J. A. Little and D. B. Rubin, \emph{Statistical Analysis with Missing Data}, 3rd ed., Hoboken, NJ, USA: John Wiley \& Sons, 2019.
+
+\bibitem{Munzner2014}
+T. Munzner, \emph{Visualization Analysis and Design}, Boca Raton, FL, USA: CRC Press, 2014.
+
+\bibitem{Cleveland1984}
+W. S. Cleveland and R. McGill, ``Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods,'' \emph{J. Amer. Statist. Assoc.}, vol. 79, no. 387, pp. 531--554, 1984.
+
+\bibitem{Mackinlay1986}
+J. Mackinlay, ``Automating the Design of Graphical Presentations of Relational Information,'' \emph{ACM Trans. Graph.}, vol. 5, no. 2, pp. 110--141, 1986.
+
+\bibitem{Bertin2011}
+J. Bertin, \emph{Semiology of Graphics: Diagrams, Networks, Maps}, Madison, WI, USA: Univ. of Wisconsin Press, 2011 (trad. de la ed. francesa de 1967).
+
+\bibitem{Shneiderman1996}
+B. Shneiderman, ``The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations,'' in \emph{Proc. IEEE Symp. Visual Languages}, Boulder, CO, USA, 1996, pp. 336--343.
+
+\bibitem{Brehmer2013}
+M. Brehmer and T. Munzner, ``A Multi-Level Typology of Abstract Visualization Tasks,'' \emph{IEEE Trans. Vis. Comput. Graphics}, vol. 19, no. 12, pp. 2376--2385, 2013.
+
+\bibitem{Sweller1988}
+J. Sweller, ``Cognitive Load During Problem Solving: Effects on Learning,'' \emph{Cognitive Sci.}, vol. 12, no. 2, pp. 257--285, 1988.
+
+\bibitem{Tufte2001}
+E. R. Tufte, \emph{The Visual Display of Quantitative Information}, 2nd ed., Cheshire, CT, USA: Graphics Press, 2001.
+
+\bibitem{Ware2012}
+C. Ware, \emph{Information Visualization: Perception for Design}, 3rd ed., Waltham, MA, USA: Morgan Kaufmann, 2012.
+
+\bibitem{Harrower2003}
+M. Harrower and C. A. Brewer, ``ColorBrewer.org: An Online Tool for Selecting Colour Schemes for Maps,'' \emph{Cartographic J.}, vol. 40, no. 1, pp. 27--37, 2003.
+
+\bibitem{Few2013}
+S. Few, \emph{Information Dashboard Design: Displaying Data for At-a-Glance Monitoring}, 2nd ed., Burlingame, CA, USA: Analytics Press, 2013.
+
+\bibitem{Furnas1986}
+G. W. Furnas, ``Generalized Fisheye Views,'' in \emph{Proc. ACM CHI}, Boston, MA, USA, 1986, pp. 16--23.
+
+\bibitem{Heer2012}
+J. Heer and B. Shneiderman, ``Interactive Dynamics for Visual Analysis,'' \emph{Commun. ACM}, vol. 55, no. 4, pp. 45--54, 2012.
 
 \end{thebibliography}
 

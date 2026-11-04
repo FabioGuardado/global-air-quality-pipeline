@@ -1,10 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.9.22)  22 SEP 2026 20:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.9.22)  3 NOV 2026 21:40
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**d:/Documents/UEES/ciclo_4/data_analysis/proyecto_u2/main.tex
-(d:/Documents/UEES/ciclo_4/data_analysis/proyecto_u2/main.tex
+**./main.tex
+(main.tex
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-08-10>
 (IEEEtran.cls
@@ -18,7 +17,8 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmpcountB=\count277
 \@IEEEtrantmpcountC=\count278
 \@IEEEtrantmptoksA=\toks17
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 503.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 5
+03.
 (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -26,7 +26,8 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 -- Using PDF output.
 \@IEEEnormalsizeunitybaselineskip=\dimen153
 -- This is a 10 point document.
-LaTeX Encoding Info:    Redeclaring text command \textunderscore (encoding ?) on input line 937.
+LaTeX Encoding Info:    Redeclaring text command \textunderscore (encoding ?) o
+n input line 937.
 \CLASSINFOnormalsizebaselineskip=\dimen154
 \CLASSINFOnormalsizeunitybaselineskip=\dimen155
 \IEEEnormaljot=\dimen156
@@ -34,42 +35,52 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
 \IEEEquantizedlength=\dimen157
 \IEEEquantizedlengthdiff=\dimen158
 \IEEEquantizedtextheightdiff=\dimen159
@@ -108,24 +119,37 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 116.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 11
+6.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-)) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
-Package: babel 2026/09/09 v26.12 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
+))
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2026/09/09 v26.12 The multilingual framework for LuaLaTeX, pdfLa
+TeX and XeLaTeX
 \babel@savecnt=\count291
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2095.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2097.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2099.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2100.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2101.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2103.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2128.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input li
+ne 2095.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input li
+ne 2097.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input lin
+e 2099.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input lin
+e 2100.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) 
+on input line 2101.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) 
+on input line 2103.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
+on input line 2128.
 \U@D=\dimen174
 \l@unhyphenated=\language79
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count292
 Package babel Info: Configuration files are deprecated, as
@@ -136,11 +160,16 @@ Package babel Info: Configuration files are deprecated, as
 * Local config file bblopts.cfg used
 *
 (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/es\babel-spanish.tex)
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/es\babel
+-spanish.tex)
 Package babel Info: Importing font and identification data for 'spanish'
 (babel)             from babel-es.ini. Reported on input line 4459.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/babel-spanish\spanish.ldf
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/babel-spanish\spanish.l
+df
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
 \es@quottoks=\toks20
 \es@quotdepth=\count293
@@ -149,23 +178,29 @@ Package babel Info: Making . an active character on input line 675.
 Package babel Info: Making < an active character on input line 722.
 Package babel Info: Making > an active character on input line 722.
 ))
-LaTeX Encoding Info:    Redeclaring text command \guillemotleft (encoding OT1) on input line 7.
-LaTeX Encoding Info:    Redeclaring text command \guillemotright (encoding OT1) on input line 7.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+LaTeX Encoding Info:    Redeclaring text command \guillemotleft (encoding OT1) 
+on input line 7.
+LaTeX Encoding Info:    Redeclaring text command \guillemotright (encoding OT1)
+ on input line 7.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2026/05/19 v2.18d AMS math features
 \@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
 (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks21
 \ex@=\dimen175
-)) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+))
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen176
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count294
@@ -215,42 +250,53 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2965.
 LaTeX Info: Redefining \] on input line 2966.
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+)) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.st
+y
 Package: graphicx 2026-05-17 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2026-05-17 v1.15 key=value parser (DPC)
 \KV@toks@=\toks26
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2026-05-17 v1.4h Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen184
 \Gin@req@width=\dimen185
 ) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -269,7 +315,8 @@ Package: array 2026/02/24 v2.7b Tabular extension package (FMi)
 \extratabsurround=\skip55
 \backup@length=\skip56
 \ar@cellbox=\box58
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen188
 \lightrulewidth=\dimen189
@@ -288,16 +335,20 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count308
 \@lastruleclass=\count309
 \@thisrulewidth=\dimen256
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip57
 \multirow@cntb=\count310
 \multirow@dima=\skip58
 \bigstrutjot=\dimen257
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\l3backend-pdftex.def
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\l3backend-pdft
+ex.def
 File: l3backend-pdftex.def 2026-08-10 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count311
 ) (main.aux
@@ -308,25 +359,27 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 -- Lines per column: 58 (exact).
-LaTeX Info: Redefining \. on input line 26.
-LaTeX Info: Redefining \% on input line 26.
-(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+LaTeX Info: Redefining \. on input line 27.
+LaTeX Info: Redefining \% on input line 27.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count312
 \scratchdimen=\dimen258
@@ -339,87 +392,200 @@ LaTeX Info: Redefining \% on input line 26.
 \MPnumerator=\count316
 \makeMPintoPDFobject=\count317
 \everyMPtoPDFconversion=\toks29
-) (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+)
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package babel Info: Main language set to 'spanish'.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
+
  (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
+
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 43.
- (C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 44
+.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
 []\T1/ptm/m/n/10 El con-jun-to de da-tos ana-li-za-do
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
-\T1/ptm/m/n/10 (\T1/pcr/m/n/10 global_air_quality_data_messy.csv\T1/ptm/m/n/10 ) re-gis-tra
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\T1/ptm/m/n/10 (\T1/pcr/m/n/10 global_air_quality_data_messy.csv\T1/ptm/m/n/10 
+) re-gis-tra
  []
 
 
-Underfull \hbox (badness 1521) in paragraph at lines 75--76
-\T1/ptm/m/n/10 ma-si-va de re-gis-tros, dis-con-ti-nui-da-des y va-lo-res fal-tan-tes
+Underfull \hbox (badness 1521) in paragraph at lines 76--77
+\T1/ptm/m/n/10 ma-si-va de re-gis-tros, dis-con-ti-nui-da-des y va-lo-res fal-t
+an-tes
  []
 
-[1{C:/Users/fabio/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{C:/Users/fabio/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/f
+abio/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ] [2]
-<fig1_pre_post.png, id=29, 783.29561pt x 291.85962pt>
-File: fig1_pre_post.png Graphic file (type png)
-<use fig1_pre_post.png>
-Package pdftex.def Info: fig1_pre_post.png  used on input line 203.
+<figures/fig1_pre_post.png, id=29, 783.29561pt x 291.85962pt>
+File: figures/fig1_pre_post.png Graphic file (type png)
+<use figures/fig1_pre_post.png>
+Package pdftex.def Info: figures/fig1_pre_post.png  used on input line 204.
 (pdftex.def)             Requested size: 252.0pt x 93.89577pt.
-<fig2_heatmap_corr.png, id=31, 537.0217pt x 458.08061pt>
-File: fig2_heatmap_corr.png Graphic file (type png)
-<use fig2_heatmap_corr.png>
-Package pdftex.def Info: fig2_heatmap_corr.png  used on input line 212.
-(pdftex.def)             Requested size: 252.0pt x 214.95541pt.
- [3 <./fig1_pre_post.png> <./fig2_heatmap_corr.png>]
-<fig3_evolucion_temporal.png, id=41, 711.02562pt x 291.85962pt>
-File: fig3_evolucion_temporal.png Graphic file (type png)
-<use fig3_evolucion_temporal.png>
-Package pdftex.def Info: fig3_evolucion_temporal.png  used on input line 224.
-(pdftex.def)             Requested size: 252.0pt x 103.43942pt.
-<fig4_estacionalidad_ciudades.png, id=42, 594.83769pt x 277.40561pt>
-File: fig4_estacionalidad_ciudades.png Graphic file (type png)
-<use fig4_estacionalidad_ciudades.png>
-Package pdftex.def Info: fig4_estacionalidad_ciudades.png  used on input line 234.
-(pdftex.def)             Requested size: 252.0pt x 117.52121pt.
-<fig5_boxplots_ciudades.png, id=43, 927.83562pt x 313.54062pt>
-File: fig5_boxplots_ciudades.png Graphic file (type png)
-<use fig5_boxplots_ciudades.png>
-Package pdftex.def Info: fig5_boxplots_ciudades.png  used on input line 244.
-(pdftex.def)             Requested size: 252.0pt x 85.15465pt.
-<fig6_viento_vs_pm25.png, id=44, 566.48561pt x 291.85962pt>
-File: fig6_viento_vs_pm25.png Graphic file (type png)
-<use fig6_viento_vs_pm25.png>
-Package pdftex.def Info: fig6_viento_vs_pm25.png  used on input line 254.
-(pdftex.def)             Requested size: 252.0pt x 129.83481pt.
-<fig7_scatter_pm10_pm25.png, id=45, 566.48561pt x 320.76761pt>
-File: fig7_scatter_pm10_pm25.png Graphic file (type png)
-<use fig7_scatter_pm10_pm25.png>
-Package pdftex.def Info: fig7_scatter_pm10_pm25.png  used on input line 264.
-(pdftex.def)             Requested size: 252.0pt x 142.69463pt.
-<fig8_exceso_oms_ciudades.png, id=46, 566.48561pt x 320.76761pt>
-File: fig8_exceso_oms_ciudades.png Graphic file (type png)
-<use fig8_exceso_oms_ciudades.png>
-Package pdftex.def Info: fig8_exceso_oms_ciudades.png  used on input line 274.
-(pdftex.def)             Requested size: 252.0pt x 142.69463pt.
- [4 <./fig3_evolucion_temporal.png> <./fig4_estacionalidad_ciudades.png> <./fig5_boxplots_ciudades.png> <./fig6_viento_vs_pm25.png> <./fig7_scatter_pm10_pm25.png> <./fig8_exceso_oms_ciudades.png>] [5
+<figures/fig2_heatmap_corr.png, id=31, 537.0217pt x 458.08061pt>
+File: figures/fig2_heatmap_corr.png Graphic file (type png)
+<use figures/fig2_heatmap_corr.png>
+Package pdftex.def Info: figures/fig2_heatmap_corr.png  used on input line 213.
 
-] (main.aux
+(pdftex.def)             Requested size: 252.0pt x 214.95541pt.
+<figures/fig3_evolucion_temporal.png, id=32, 711.02562pt x 291.85962pt>
+File: figures/fig3_evolucion_temporal.png Graphic file (type png)
+<use figures/fig3_evolucion_temporal.png>
+Package pdftex.def Info: figures/fig3_evolucion_temporal.png  used on input lin
+e 225.
+(pdftex.def)             Requested size: 252.0pt x 103.43942pt.
+<figures/fig4_estacionalidad_ciudades.png, id=33, 594.83769pt x 277.40561pt>
+File: figures/fig4_estacionalidad_ciudades.png Graphic file (type png)
+<use figures/fig4_estacionalidad_ciudades.png>
+Package pdftex.def Info: figures/fig4_estacionalidad_ciudades.png  used on inpu
+t line 235.
+(pdftex.def)             Requested size: 252.0pt x 117.52121pt.
+<figures/fig5_boxplots_ciudades.png, id=34, 927.83562pt x 313.54062pt>
+File: figures/fig5_boxplots_ciudades.png Graphic file (type png)
+<use figures/fig5_boxplots_ciudades.png>
+Package pdftex.def Info: figures/fig5_boxplots_ciudades.png  used on input line
+ 245.
+(pdftex.def)             Requested size: 252.0pt x 85.15465pt.
+ [3 <./figures/fig1_pre_post.png>]
+<figures/fig6_viento_vs_pm25.png, id=43, 566.48561pt x 291.85962pt>
+File: figures/fig6_viento_vs_pm25.png Graphic file (type png)
+<use figures/fig6_viento_vs_pm25.png>
+Package pdftex.def Info: figures/fig6_viento_vs_pm25.png  used on input line 25
+5.
+(pdftex.def)             Requested size: 252.0pt x 129.83481pt.
+<figures/fig7_scatter_pm10_pm25.png, id=44, 566.48561pt x 320.76761pt>
+File: figures/fig7_scatter_pm10_pm25.png Graphic file (type png)
+<use figures/fig7_scatter_pm10_pm25.png>
+Package pdftex.def Info: figures/fig7_scatter_pm10_pm25.png  used on input line
+ 265.
+(pdftex.def)             Requested size: 252.0pt x 142.69463pt.
+<figures/fig8_exceso_oms_ciudades.png, id=45, 566.48561pt x 320.76761pt>
+File: figures/fig8_exceso_oms_ciudades.png Graphic file (type png)
+<use figures/fig8_exceso_oms_ciudades.png>
+Package pdftex.def Info: figures/fig8_exceso_oms_ciudades.png  used on input li
+ne 275.
+(pdftex.def)             Requested size: 252.0pt x 142.69463pt.
+ [4 <./figures/fig2_heatmap_corr.png> <./figures/fig3_evolucion_temporal.png> <
+./figures/fig4_estacionalidad_ciudades.png> <./figures/fig5_boxplots_ciudades.p
+ng> <./figures/fig6_viento_vs_pm25.png> <./figures/fig7_scatter_pm10_pm25.png>]
+
+Underfull \hbox (badness 6625) in paragraph at lines 320--321
+[]|\T1/ptm/m/n/8 Barras api-la-das por
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+[]|\T1/ptm/m/n/8 Barras, KPI,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+[]|\T1/ptm/m/n/8 Mediana
+ []
+
+
+Underfull \hbox (badness 1509) in paragraph at lines 325--325
+[]|\T1/ptm/m/n/8 Posición, re-gión som-brea-da y
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
+[]|\T1/ptm/m/n/8 Dispersión PM$[]$--
+ []
+
+
+Overfull \hbox (8.87677pt too wide) in paragraph at lines 316--328
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 346--346
+[]|\T1/ptm/m/n/8 03 Cau-sa
+ []
+
+
+Underfull \hbox (badness 5548) in paragraph at lines 346--346
+[]|\T1/ptm/m/n/8 Comparar, ve-ri-fi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 348--348
+[]|\T1/ptm/m/n/8 Verificar
+ []
+
+
+Overfull \hbox (13.32092pt too wide) in paragraph at lines 340--351
+ [][] 
+ []
+
+[5 <./figures/fig8_exceso_oms_ciudades.png>]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+69.
+
+(C:\Users\fabio\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+<figures/fig9_dash_diagnostico.png, id=59, 2991.175pt x 3114.63625pt>
+File: figures/fig9_dash_diagnostico.png Graphic file (type png)
+<use figures/fig9_dash_diagnostico.png>
+Package pdftex.def Info: figures/fig9_dash_diagnostico.png  used on input line 
+373.
+(pdftex.def)             Requested size: 252.0pt x 262.38808pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
+[]\T1/ptm/b/n/10 Caso 2: pa-tro-nes y ano-ma-lías. \T1/ptm/m/n/10 El ca-len-da-
+rio
+ []
+
+<figures/fig10_dash_patrones.png, id=60, 2276.505pt x 2591.6825pt>
+File: figures/fig10_dash_patrones.png Graphic file (type png)
+<use figures/fig10_dash_patrones.png>
+Package pdftex.def Info: figures/fig10_dash_patrones.png  used on input line 38
+2.
+(pdftex.def)             Requested size: 252.0pt x 286.86552pt.
+<figures/fig11_dash_causa.png, id=61, 2253.41875pt x 1359.0775pt>
+File: figures/fig11_dash_causa.png Graphic file (type png)
+<use figures/fig11_dash_causa.png>
+Package pdftex.def Info: figures/fig11_dash_causa.png  used on input line 391.
+(pdftex.def)             Requested size: 252.0pt x 151.96678pt.
+[6 <./figures/fig9_dash_diagnostico.png (PNG copy)> <./figures/fig10_dash_patro
+nes.png (PNG copy)>]
+<figures/fig12_dash_recomendacion.png, id=65, 2250.4075pt x 1565.85pt>
+File: figures/fig12_dash_recomendacion.png Graphic file (type png)
+<use figures/fig12_dash_recomendacion.png>
+Package pdftex.def Info: figures/fig12_dash_recomendacion.png  used on input li
+ne 400.
+(pdftex.def)             Requested size: 252.0pt x 175.32622pt.
+ [7 <./figures/fig11_dash_causa.png (PNG copy)> <./figures/fig12_dash_recomenda
+cion.png (PNG copy)>] (main.aux
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
 )
@@ -429,17 +595,44 @@ L3 programming layer <2026-08-10>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6340 strings out of 467440
- 105225 string characters out of 5407570
- 550627 words of memory out of 5000000
- 35557 multiletter control sequences out of 15000+600000
- 754437 words of font info for 174 fonts, out of 8000000 for 9000
+ 6457 strings out of 467440
+ 108361 string characters out of 5407570
+ 549843 words of memory out of 5000000
+ 35670 multiletter control sequences out of 15000+600000
+ 755372 words of font info for 177 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,12n,65p,1219b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 936082 bytes).
+ 57i,12n,65p,1169b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmex10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fabio/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/fabio/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fabio/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/fabio/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/
+fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
+:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5
+.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr6.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr7.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmr9.pfb><C:/Users/fabio/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fabio/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/fabio/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fabio/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/fab
+io/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/U
+sers/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:
+/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><
+C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><
+C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb>
+<C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
+<C:/Users/fabio/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb
+>
+Output written on main.pdf (7 pages, 2484217 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
+ 173 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 
