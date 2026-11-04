@@ -19,16 +19,16 @@
 \citation{McKinney2010}
 \babel@aux{spanish}{}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introducción}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {II}Descripción del Dataset y Diagnóstico Inicial}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Origen y Procedencia de los Datos}{1}{}\protected@file@percent }
 \citation{Pedregosa2011}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Descripción del Dataset y Diagnóstico Inicial}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Origen y Procedencia de los Datos}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Diccionario Formal de Variables}{2}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Diccionario de variables del dataset de calidad del aire}}{2}{}\protected@file@percent }
 \newlabel{tab:diccionario}{{I}{2}{}{table.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Matriz Diagnóstica de Calidad Inicial (Perfilado de Datos)}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III}Metodología de Preprocesamiento y Transformación}{2}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Matriz diagnóstica de calidad de datos inicial}}{2}{}\protected@file@percent }
 \newlabel{tab:calidad_inicial}{{II}{2}{}{table.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Metodología de Preprocesamiento y Transformación}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Prevención Rigurosa de Fuga de Datos}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Saneamiento de Redundancia y Corrección de Tipos}{2}{}\protected@file@percent }
 \newlabel{sec:redundancia}{{\mbox  {III-B}}{2}{}{subsection.3.2}{}}
@@ -44,17 +44,18 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Evidencia Cuantitativa Pre y Post Procesamiento}{3}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Diagramas de caja (Boxplots) y gráficos de densidad (KDE) comparativos pre vs. post procesamiento para PM2.5 y PM10.}}{3}{}\protected@file@percent }
 \newlabel{fig:prepost}{{1}{3}{}{figure.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Matriz de correlación multivariable (Heatmap de Pearson y Spearman) post-procesamiento.}}{3}{}\protected@file@percent }
-\newlabel{fig:heatmap_corr}{{2}{3}{}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Discusión de Preguntas Analíticas de Investigación}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}1}1. ¿Cómo evoluciona la contaminación en el tiempo?}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}2}2. ¿Existe estacionalidad, y es igual en todas las ciudades?}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}3}3. ¿Difieren los niveles entre ciudades y países?}{3}{}\protected@file@percent }
 \citation{OMS2021}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Discusión de Preguntas Analíticas de Investigación}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}1}1. ¿Cómo evoluciona la contaminación en el tiempo?}{4}{}\protected@file@percent }
+\citation{Pedregosa2011}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Matriz de correlación multivariable (Heatmap de Pearson y Spearman) post-procesamiento.}}{4}{}\protected@file@percent }
+\newlabel{fig:heatmap_corr}{{2}{4}{}{figure.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Gráfico de líneas sobre la evolución mensual promedio de PM2.5 para las ciudades principales.}}{4}{}\protected@file@percent }
 \newlabel{fig:evolucion}{{3}{4}{}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}2}2. ¿Existe estacionalidad, y es igual en todas las ciudades?}{4}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Mapas de calor (Heatmaps) de estacionalidad mensual de PM2.5 normalizados por ciudad.}}{4}{}\protected@file@percent }
 \newlabel{fig:estacionalidad}{{4}{4}{}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}3}3. ¿Difieren los niveles entre ciudades y países?}{4}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Diagrama de cajas (Boxplots) ordenado de PM2.5 por ciudad.}}{4}{}\protected@file@percent }
 \newlabel{fig:boxplots_ciudades}{{5}{4}{}{figure.5}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}4}4. ¿Cómo influyen las variables meteorológicas?}{4}{}\protected@file@percent }
@@ -64,10 +65,38 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Gráfico de dispersión (Scatterplot) entre PM10 y PM2.5 con ajuste de regresión.}}{4}{}\protected@file@percent }
 \newlabel{fig:pm10_pm25}{{7}{4}{}{figure.7}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}6}6. ¿Con qué frecuencia se superan los umbrales de la OMS?}{4}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Gráfico de barras del porcentaje de días que exceden las guías de la OMS por ciudad.}}{4}{}\protected@file@percent }
-\newlabel{fig:exceso_oms}{{8}{4}{}{figure.8}{}}
-\citation{Pedregosa2011}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}7}7. ¿Cambia el patrón entre días laborales y fines de semana?}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusiones y Trabajo Futuro}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Síntesis del Impacto del Pipeline}{4}{}\protected@file@percent }
 \citation{Rivas2022}
+\citation{Shneiderman1996}
+\citation{Cleveland1984}
+\citation{Mackinlay1986}
+\citation{Munzner2014}
+\citation{Bertin2011}
+\citation{Harrower2003}
+\citation{Tufte2001}
+\citation{Ware2012}
+\citation{Brehmer2013}
+\citation{Heer2012}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Gráfico de barras del porcentaje de días que exceden las guías de la OMS por ciudad.}}{5}{}\protected@file@percent }
+\newlabel{fig:exceso_oms}{{8}{5}{}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Conclusiones sobre los Hallazgos}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Limitaciones Metodológicas}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}Recomendaciones Técnicas y de Salud Pública}{5}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Codificación visual de los atributos del tablero.}}{5}{}\protected@file@percent }
+\newlabel{tab:canales}{{III}{5}{}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Tareas visuales por capítulo.}}{5}{}\protected@file@percent }
+\newlabel{tab:tareas}{{IV}{5}{}{table.4}{}}
+\citation{Sweller1988}
+\citation{Tufte2001}
+\citation{Few2013}
+\citation{Furnas1986}
+\citation{OMS2021}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Capítulo 01 (Diagnóstico) con Johannesburg seleccionada. (A)~Filtro de ciudad sincronizado con el clic. (B)~KPI principal con su delta frente al total. (C)~Barra resaltada y resto atenuado (foco $+$ contexto). (D)~Ciudad marcada en el mapa con un anillo azul. (E)~Texto de lectura generado para la selección.}}{6}{}\protected@file@percent }
+\newlabel{fig:dash_diag}{{9}{6}{}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Capítulo 02 (Patrones y anomalías). (A)~Calendario de la mediana semanal por ciudad con escala fija. (B)~Media móvil de 7 días con banda intercuartílica y línea de guía OMS. (C)~Porcentaje de días sobre la guía por mes, con eje completo de 0 a 100\%.}}{6}{}\protected@file@percent }
+\newlabel{fig:dash_patrones}{{10}{6}{}{figure.10}{}}
 \bibcite{OMS2021}{1}
 \bibcite{McKinney2010}{2}
 \bibcite{Pedregosa2011}{3}
@@ -77,11 +106,22 @@
 \bibcite{Waskom2021}{7}
 \bibcite{Rivas2022}{8}
 \bibcite{Little2019}{9}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-B}7}7. ¿Cambia el patrón entre días laborales y fines de semana?}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusiones y Trabajo Futuro}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Síntesis del Impacto del Pipeline}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Conclusiones sobre los Hallazgos}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Limitaciones Metodológicas}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}Recomendaciones Técnicas y de Salud Pública}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Referencias}{5}{}\protected@file@percent }
-\gdef \@abspage@last{5}
+\bibcite{Munzner2014}{10}
+\bibcite{Cleveland1984}{11}
+\bibcite{Mackinlay1986}{12}
+\bibcite{Bertin2011}{13}
+\bibcite{Shneiderman1996}{14}
+\bibcite{Brehmer2013}{15}
+\bibcite{Sweller1988}{16}
+\bibcite{Tufte2001}{17}
+\bibcite{Ware2012}{18}
+\bibcite{Harrower2003}{19}
+\bibcite{Few2013}{20}
+\bibcite{Furnas1986}{21}
+\bibcite{Heer2012}{22}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Capítulo 03 (Causa raíz). (A)~Veredicto con icono y valor $p$ por factor. (B)~Franja de efecto despreciable y umbral de relevancia. (C)~Ciudad: efecto grande pero no significativo. (D)~Guía de lectura de los cuatro veredictos y de las pruebas no paramétricas utilizadas.}}{7}{}\protected@file@percent }
+\newlabel{fig:dash_causa}{{11}{7}{}{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Capítulo 04 (Recomendación) con un escenario de $-40\%$. (A)~Deslizador de recorte. (B)~KPI reactivos con su valor actual. (C)~Distribución por nivel OMS, hoy y con el escenario, con la misma rampa de severidad. (D)~Hoja de ruta con el recorte necesario por meta y la línea del escenario.}}{7}{}\protected@file@percent }
+\newlabel{fig:dash_reco}{{12}{7}{}{figure.12}{}}
+\@writefile{toc}{\contentsline {section}{Referencias}{7}{}\protected@file@percent }
+\gdef \@abspage@last{7}
